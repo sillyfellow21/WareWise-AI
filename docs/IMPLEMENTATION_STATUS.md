@@ -8,6 +8,9 @@ This file separates executable behavior from the target specifications.
 - Typed API foundation: Express app, Helmet, strict JSON body limit, CORS allowlist, request IDs, redacted structured access/error logs, in-process request limiting, liveness, truthful configuration readiness, and a basic metrics endpoint.
 - ML contract foundation: FastAPI health/readiness, validated single forecasts, batch forecasts, latest in-memory forecast lookup, and deterministic baseline recommendation logic.
 - Existing React application still builds with Vite.
+- Frontend composition foundation: `App`, `AppShell`, `AppRouter`, and the
+	reusable protected-route component separate theme setup, routing, and access
+	control responsibilities.
 
 ## Not implemented yet
 
@@ -17,7 +20,8 @@ This file separates executable behavior from the target specifications.
 - Product, supplier, inventory movement, purchase-order, payment, audit-log, and notification modules.
 - API-to-ML authenticated proxy and durable forecast storage.
 - Blockchain service, contract deployment scripts, confirmation reconciliation, and contract tests.
-- React TypeScript migration and feature-based client modules.
+- React TypeScript migration and feature-based client modules beyond the new
+	app composition foundation.
 - Object storage, email delivery, observability export, OpenAPI generation, integration tests, end-to-end tests, and deployment workflow.
 - Trained forecasting models, historical-data validation, model evaluation, and model registry.
 

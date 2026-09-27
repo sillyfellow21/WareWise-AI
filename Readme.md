@@ -110,17 +110,20 @@ The local API needs environment values from `.env.example` and
 
 ## Project documentation
 
-The `docs/` folder explains the planned system in plain, testable terms:
+The `docs/` folder explains the system in plain, testable terms. The
+[implementation status](https://github.com/sillyfellow21/WareWise-AI/blob/main/docs/IMPLEMENTATION_STATUS.md)
+is the best place to start: it clearly separates completed work from planned
+work and lists the decisions still needed from the project owner.
 
-- [Product overview](docs/PRODUCT_SPEC.md)
-- [System architecture](docs/ARCHITECTURE.md)
-- [Database design](docs/DATABASE_SCHEMA.md)
-- [API design](docs/API_SPEC.md)
-- [Security requirements](docs/SECURITY_SPEC.md)
-- [Forecasting requirements](docs/ML_SPEC.md)
-- [Blockchain requirements](docs/BLOCKCHAIN_SPEC.md)
-- [Deployment requirements](docs/DEPLOYMENT_SPEC.md)
-- [Implementation status](docs/IMPLEMENTATION_STATUS.md)
+- [Product overview](https://github.com/sillyfellow21/WareWise-AI/blob/main/docs/PRODUCT_SPEC.md)
+- [System architecture](https://github.com/sillyfellow21/WareWise-AI/blob/main/docs/ARCHITECTURE.md)
+- [Database design](https://github.com/sillyfellow21/WareWise-AI/blob/main/docs/DATABASE_SCHEMA.md)
+- [API design](https://github.com/sillyfellow21/WareWise-AI/blob/main/docs/API_SPEC.md)
+- [Security requirements](https://github.com/sillyfellow21/WareWise-AI/blob/main/docs/SECURITY_SPEC.md)
+- [Forecasting requirements](https://github.com/sillyfellow21/WareWise-AI/blob/main/docs/ML_SPEC.md)
+- [Blockchain requirements](https://github.com/sillyfellow21/WareWise-AI/blob/main/docs/BLOCKCHAIN_SPEC.md)
+- [Deployment requirements](https://github.com/sillyfellow21/WareWise-AI/blob/main/docs/DEPLOYMENT_SPEC.md)
+- [Implementation status](https://github.com/sillyfellow21/WareWise-AI/blob/main/docs/IMPLEMENTATION_STATUS.md)
 
 ## Privacy and security
 

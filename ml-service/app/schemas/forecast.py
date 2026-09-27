@@ -19,6 +19,10 @@ class ForecastRequest(BaseModel):
     modelVersion: str = Field(default="baseline-v1", min_length=1, max_length=64)
 
 
+class ForecastBatchRequest(BaseModel):
+    items: list[ForecastRequest] = Field(min_length=1, max_length=100)
+
+
 class ForecastResponse(BaseModel):
     productId: str
     forecast: float

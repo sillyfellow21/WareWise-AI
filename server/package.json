@@ -22,7 +22,7 @@
     "typecheck": "tsc --noEmit",
     "build:typed": "tsc",
     "start:typed": "node dist/server.js",
-    "test": "node --test"
+    "test": "npm run build:typed && node --test"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { ResponsiveLine } from '@nivo/line';
 
 const SalesLineChart = ({ data }) => (
@@ -78,3 +79,7 @@ const SalesLineChart = ({ data }) => (
 );
 
 export default SalesLineChart;
+
+SalesLineChart.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+};

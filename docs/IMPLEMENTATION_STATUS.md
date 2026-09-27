@@ -11,6 +11,10 @@ This file separates executable behavior from the target specifications.
 - Frontend composition foundation: `App`, `AppShell`, `AppRouter`, and the
 	reusable protected-route component separate theme setup, routing, and access
 	control responsibilities.
+- Client quality baseline: generated bundles are excluded from lint, legacy
+	components have explicit prop contracts, asynchronous effects declare their
+	dependencies, and the full client lint now passes with zero errors or
+	warnings.
 
 ## Not implemented yet
 

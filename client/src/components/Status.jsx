@@ -1,5 +1,5 @@
-import React from "react";
-import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import PropTypes from 'prop-types';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 const Category = ({ filterStatus, status, setFilterStatus }) => {
   const handleStatusChange = (product) => {
@@ -7,17 +7,17 @@ const Category = ({ filterStatus, status, setFilterStatus }) => {
   };
 
   return (
-    <FormControl variant="outlined" fullWidth >
+    <FormControl variant="outlined" fullWidth>
       <InputLabel id="status-label">Choose your mode</InputLabel>
       <Select
         labelId="status-label"
         id="status-select"
         multiple
-        
+
         value={filterStatus}
         onChange={handleStatusChange}
         label="Choose Mode"
-        renderValue={(selected) => selected.join(", ")}
+        renderValue={(selected) => selected.join(', ')}
       >
         {status.map((status) => (
           <MenuItem key={status} value={status}>
@@ -30,3 +30,9 @@ const Category = ({ filterStatus, status, setFilterStatus }) => {
 };
 
 export default Category;
+
+Category.propTypes = {
+  filterStatus: PropTypes.arrayOf(PropTypes.string).isRequired,
+  status: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setFilterStatus: PropTypes.func.isRequired,
+};

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Box } from '@mui/material';
@@ -11,22 +11,25 @@ const ProductDetail = () => {
   const { productId } = useParams();
   const token = useSelector((state) => state.token);
   const products = useSelector((state) => state.products.products);
-  
+
   // Find the ride in the state using rideId
   const currentProduct = products.find((product) => product._id === productId);
 
-  const getProduct = async () => {
-    const response = await fetch(`https://intelligent-supplychain-management.onrender.com/products/${productId}/product`, {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  const getProduct = useCallback(async () => {
+    const response = await fetch(
+      `https://intelligent-supplychain-management.onrender.com/products/${productId}/product`,
+      {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
     const data = await response.json();
     dispatch(setProduct({ product: data }));
-  };
+  }, [dispatch, productId, token]);
 
   useEffect(() => {
     getProduct();
-  }, [productId]); // Fetch ride data whenever rideId changes
+  }, [getProduct]);
 
   return (
     <Box>

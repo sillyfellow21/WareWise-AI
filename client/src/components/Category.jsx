@@ -1,5 +1,5 @@
-import React from "react";
-import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import PropTypes from 'prop-types';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 const Category = ({ filterCategory, category, setFilterCategory }) => {
   const handleCategoryChange = (product) => {
@@ -7,17 +7,17 @@ const Category = ({ filterCategory, category, setFilterCategory }) => {
   };
 
   return (
-    <FormControl variant="outlined" fullWidth >
+    <FormControl variant="outlined" fullWidth>
       <InputLabel id="category-label">Filter by Category</InputLabel>
       <Select
         labelId="category-label"
         id="category-select"
         multiple
-        
+
         value={filterCategory}
         onChange={handleCategoryChange}
         label="Filter by Category"
-        renderValue={(selected) => selected.join(", ")}
+        renderValue={(selected) => selected.join(', ')}
       >
         {category.map((category) => (
           <MenuItem key={category} value={category}>
@@ -30,3 +30,9 @@ const Category = ({ filterCategory, category, setFilterCategory }) => {
 };
 
 export default Category;
+
+Category.propTypes = {
+  filterCategory: PropTypes.arrayOf(PropTypes.string).isRequired,
+  category: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setFilterCategory: PropTypes.func.isRequired,
+};

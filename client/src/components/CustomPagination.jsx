@@ -1,6 +1,6 @@
-import React from "react";
-import { Pagination } from "@mui/material";
-import { useMediaQuery } from "@mui/material";
+import PropTypes from 'prop-types';
+import { Pagination } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 
 const CustomPagination = ({ page, limit, total, setPage }) => {
   const pageCount = Math.ceil(total / limit);
@@ -10,11 +10,11 @@ const CustomPagination = ({ page, limit, total, setPage }) => {
     setPage(value);
   };
 
-  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+  const isNonMobileScreens = useMediaQuery('(min-width:1000px)');
 
   return (
     <Pagination
-      size={isNonMobileScreens ? "large" : "small"}
+      size={isNonMobileScreens ? 'large' : 'small'}
       color="primary"
       count={pageCount}
       page={page}
@@ -26,3 +26,10 @@ const CustomPagination = ({ page, limit, total, setPage }) => {
 };
 
 export default CustomPagination;
+
+CustomPagination.propTypes = {
+  page: PropTypes.number.isRequired,
+  limit: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  setPage: PropTypes.func.isRequired,
+};

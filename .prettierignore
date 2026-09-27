@@ -1,0 +1,5 @@
+node_modules
+dist
+coverage
+client/src/assets
+server/public/assets

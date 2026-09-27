@@ -1,4 +1,4 @@
-# Warehouse - Intelligent Supply Chain Management System
+# WareWise - Intelligent Supply Chain Management System
 
 Warehouse is an innovative supply chain management system developed during a hackathon. It leverages blockchain technology for decentralized payments and incorporates predictive analytics for intelligent inventory management.
 
@@ -43,8 +43,12 @@ Warehouse is an innovative supply chain management system developed during a hac
 - Pandas: Data manipulation and analysis
 - Jupyter Notebook: Interactive development environment
 
-### Testing
-- Supplier Account: email-888innovations888@gmail.com password-1234
-- Employee account: email-akhil888binoy@gmail.com password-1234
-- Link : https://intelligent-supplychain-management-ndy1.onrender.com/
+## Production migration
+
+The original hackathon implementation is being migrated incrementally. The current
+MongoDB API remains available while the typed API is introduced under `server/src`.
+See the versioned specifications in `docs/` before changing cross-module behavior.
+
+Do not use or publish credentials from the original prototype. Any credentials that
+were previously exposed must be rotated.
 

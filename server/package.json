@@ -16,10 +16,19 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
-  "type" : "module",
-  "devDependencies": {},
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node --watch index.js",
+    "typecheck": "tsc --noEmit",
+    "build:typed": "tsc",
+    "start:typed": "node dist/server.js",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
   },
   "keywords": [],
   "author": "",

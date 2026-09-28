@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "../../state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "../../components/FlexBetween";
+import { apiUrl } from "../../config/api";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -117,7 +118,7 @@ const Form = () => {
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      "https://intelligent-supplychain-management.onrender.com/auth/register",
+      apiUrl("/auth/register"),
       {
         method: "POST",
         body: formData,
@@ -135,7 +136,7 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("https://intelligent-supplychain-management.onrender.com/auth/login", {
+    const loggedInResponse = await fetch(apiUrl("/auth/login"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
@@ -156,7 +157,7 @@ const Form = () => {
  
   const VerifyEmail = async (values, onSubmitProps) => {
     try {
-      const response = await fetch("https://intelligent-supplychain-management.onrender.com/auth/verify-email", {
+      const response = await fetch(apiUrl("/auth/verify-email"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
@@ -176,7 +177,7 @@ const Form = () => {
     }
   };
   const resetPasswordSecurity = async (values, onSubmitProps) => {
-    const response = await fetch("https://intelligent-supplychain-management.onrender.com/auth/reset-password-security", {
+    const response = await fetch(apiUrl("/auth/reset-password-security"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),

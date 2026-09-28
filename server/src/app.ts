@@ -7,11 +7,22 @@ import { errorHandler } from './middleware/errorHandler.js';
 import { requestId } from './middleware/requestId.js';
 import { accessLog } from './middleware/accessLog.js';
 import { rateLimit } from './middleware/rateLimit.js';
+import { authRouter } from './modules/auth/auth.routes.js';
+import { usersRouter } from './modules/users/users.routes.js';
+import { productsRouter } from './modules/products/products.routes.js';
+import { assetsRouter } from './modules/assets/assets.routes.js';
+import { predictMonthly } from './modules/predictions/predictions.controller.js';
 
 export const app = express();
 
+// Render's router is the only peer; trust one hop so `request.ip` (and the
+// rate limiter) resolve to the real client instead of the proxy address.
+app.set('trust proxy', 1);
 app.disable('x-powered-by');
 app.use(helmet());
+// Avatars are loaded cross-origin via <img>; without a permissive resource
+// policy the browser would block them even though the API answers 200.
+app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use(cors({ origin: env.corsOrigins, credentials: true }));
 app.use(express.json({ limit: '1mb' }));
 app.use(requestId);
@@ -39,6 +50,14 @@ app.get('/ready', (_request, response) => {
 });
 
 app.get('/api/v1/health', liveness);
+
+// Legacy-compatible application routes — paths the React client calls
+// verbatim (auth, users, products, avatars, monthly predictions).
+app.use('/auth', authRouter);
+app.use('/users', usersRouter);
+app.use('/products', productsRouter);
+app.use('/assets', assetsRouter);
+app.get('/predictMonthly', predictMonthly);
 
 app.get('/metrics', (_request, response) => {
   response.type('text/plain').send(

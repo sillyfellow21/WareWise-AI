@@ -26,6 +26,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProducts } from '../../state';
 import FlexBetween from '../../components/FlexBetween';
+import { apiUrl } from '../../config/api';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
@@ -72,7 +73,7 @@ const MyProductWidget = ({ picturePath }) => {
     formData.append('category', category);
 
     const response = await fetch(
-      `https://intelligent-supplychain-management.onrender.com/products`,
+      apiUrl('/products'),
       {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` }, // Ensure token is valid

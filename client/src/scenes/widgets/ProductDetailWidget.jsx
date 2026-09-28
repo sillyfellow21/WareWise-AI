@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 import FlexBetween from '../../components/FlexBetween';
+import { apiUrl } from '../../config/api';
 import WidgetWrapper from '../../components/WidgetWrapper';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -40,7 +41,7 @@ const ProductDetailWidget = ({
 
   const patchProduct = async () => {
     const response = await fetch(
-      `https://intelligent-supplychain-management.onrender.com/products/${productId}/booking`,
+      apiUrl(`/products/${productId}/booking`),
       {
         method: 'PATCH',
         headers: {

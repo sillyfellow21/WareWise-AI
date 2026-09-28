@@ -10,6 +10,7 @@ import { Box, Typography, Divider, useTheme, TextField, Button } from '@mui/mate
 import UserImage from '../../components/UserImage';
 import FlexBetween from '../../components/FlexBetween';
 import WidgetWrapper from '../../components/WidgetWrapper';
+import { apiUrl } from '../../config/api';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -31,7 +32,7 @@ const BookedUserWidget = ({ userId }) => {
 
   const getUser = async () => {
     const response = await fetch(
-      `https://intelligent-supplychain-management.onrender.com/users/${userId}`,
+      apiUrl(`/users/${userId}`),
       {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },
@@ -56,7 +57,7 @@ const BookedUserWidget = ({ userId }) => {
   const handleSave = async () => {
     // Send updated user details to backend for saving
     try {
-      await fetch(`https://intelligent-supplychain-management.onrender.com/users/${userId}`, {
+      await fetch(apiUrl(`/users/${userId}`), {
         method: 'PATCH', // Use PATCH method for partial updates
         headers: {
           'Content-Type': 'application/json',

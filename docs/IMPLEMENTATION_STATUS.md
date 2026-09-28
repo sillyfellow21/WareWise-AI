@@ -22,14 +22,29 @@ This file separates executable behavior from the target specifications.
 	The API now serves `GET /api/health`, both application services read the
 	platform `PORT` and bind `0.0.0.0`, and the client resolves its API origin
 	from `VITE_API_BASE_URL`.
+- PostgreSQL via Prisma: schema (`server/prisma/schema.prisma`), build-time
+	`prisma db push` in the Blueprint, lazy client, and an idempotent boot seed
+	(the seven demo accounts plus marketplace listings documented in the README).
+- Auth, users, and products on the typed API, speaking the legacy route
+	shapes the deployed React client expects: multipart registration with
+	avatar storage, login with JWT, forgot-password (security question)
+	flow, profile read/patch, paginated/sorted/filtered product feeds,
+	owner and booked product lists, product detail, create, booking toggle,
+	ownership-checked delete, and `/assets/*` avatar serving.
+- `GET /predictMonthly` compatibility endpoint: batches a year of forecasts
+	against the ML service (cached, with a deterministic local fallback), so
+	the deployed predictions page renders without the retired hackathon host.
+- All client API call sites resolve through `VITE_API_BASE_URL`
+	(`client/src/config/api.js`); no retired hosts remain in the SPA.
 
 ## Not implemented yet
 
-- PostgreSQL connection, Prisma schema/migrations, seed data, and repositories.
+- Refresh-token rotation, session revocation, and RBAC middleware (login issues a
+	stateless JWT; every demo role shares the same permissions).
 - Redis connection, distributed rate limiting, queues, and scheduled jobs.
-- Authentication: registration, login, short-lived access tokens, refresh-token rotation, logout, password reset, session revocation, and RBAC middleware.
-- Product, supplier, inventory movement, purchase-order, payment, audit-log, and notification modules.
-- API-to-ML authenticated proxy and durable forecast storage.
+- Inventory movement, purchase-order, payment, audit-log, and notification modules.
+- Durable forecast storage (the ML service keeps forecasts in memory; the API
+	caches a year of monthly series for 15 minutes).
 - Blockchain service, contract deployment scripts, confirmation reconciliation, and contract tests.
 - React TypeScript migration and feature-based client modules beyond the new
 	app composition foundation.

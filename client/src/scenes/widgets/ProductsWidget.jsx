@@ -11,6 +11,7 @@ import { Box } from '@mui/material';
 import CustomPagination from '../../components/CustomPagination';
 import ProductWidget from './ProductWidget';
 import Status from '../../components/Status';
+import { apiUrl } from '../../config/api';
 
 const ProductsWidget = ({ userId, isProfile = false, isBookedProducts = false }) => {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ const ProductsWidget = ({ userId, isProfile = false, isBookedProducts = false })
         const filterStatusString = filterStatus.join(',');
 
         const response = await fetch(
-          `https://intelligent-supplychain-management.onrender.com/products?page=${page}&sort=${sort.sort},${sort.order}&category=${filterCategoryString}&status=${filterStatusString}&search=${filterName}&name=${filterName}`, // Include location in the API request
+          apiUrl(`/products?page=${page}&sort=${sort.sort},${sort.order}&category=${filterCategoryString}&status=${filterStatusString}&search=${filterName}&name=${filterName}`), // Include location in the API request
           {
             method: 'GET',
             headers: { Authorization: `Bearer ${token}` },
@@ -75,7 +76,7 @@ const ProductsWidget = ({ userId, isProfile = false, isBookedProducts = false })
       setLoading(true); // Start loading
       const filterCategoryString = filterCategory.join(',');
       const response = await fetch(
-        `https://intelligent-supplychain-management.onrender.com/products/${userId}/products?page=${page}&sort=${sort.sort},${sort.order}&category=${filterCategoryString}&search=${filterName}&name=${filterName}`,
+        apiUrl(`/products/${userId}/products?page=${page}&sort=${sort.sort},${sort.order}&category=${filterCategoryString}&search=${filterName}&name=${filterName}`),
         {
           method: 'GET',
           headers: { Authorization: `Bearer ${token}` },
@@ -91,7 +92,7 @@ const ProductsWidget = ({ userId, isProfile = false, isBookedProducts = false })
       const filterCategoryString = filterCategory.join(',');
 
       const response = await fetch(
-        `https://intelligent-supplychain-management.onrender.com/products/${userId}/bookedproducts?page=${page}&sort=${sort.sort},${sort.order}&category=${filterCategoryString}&search=${filterName}&name=${filterName}`,
+        apiUrl(`/products/${userId}/bookedproducts?page=${page}&sort=${sort.sort},${sort.order}&category=${filterCategoryString}&search=${filterName}&name=${filterName}`),
         {
           method: 'GET',
           headers: { Authorization: `Bearer ${token}` },

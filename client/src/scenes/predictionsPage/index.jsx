@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import SalesLineChart from '../../components/SalesLineChart';
 import { Box, CircularProgress, TextField, Typography } from '@mui/material';
 import Navbar from '../../scenes/navbar';
+import { apiUrl } from '../../config/api';
 
 const PredictionPage = () => {
   const [monthlySales, setMonthlySales] = useState([]);
@@ -20,7 +21,7 @@ const PredictionPage = () => {
 
       for (let month = 0; month < 12; month++) {
         const response = await fetch(
-          `https://sparkathon24.pankajkush.club/predictMonthly?month=${month + 1}&year=${year}`,
+          apiUrl(`/predictMonthly?month=${month + 1}&year=${year}`),
           {
             method: 'GET',
           },

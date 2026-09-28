@@ -87,8 +87,9 @@ services:
     region: oregon
     rootDir: server
     # --include=dev keeps TypeScript available for the build (NODE_ENV=production
-    # would otherwise omit devDependencies).
-    buildCommand: npm ci --include=dev && npm run build:typed
+    # would otherwise omit devDependencies). `prisma db push` applies the schema
+    # (and generates the client) against the provisioned Postgres at build time.
+    buildCommand: npm ci --include=dev && npx prisma db push && npm run build:typed
     startCommand: npm run start:typed
     # Render probes this path and only shifts traffic once it answers 2xx/3xx.
     healthCheckPath: /api/health

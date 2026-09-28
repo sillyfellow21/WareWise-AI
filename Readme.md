@@ -43,22 +43,31 @@ Forecasts are recommendations, not automatic orders. 🌱
 
 ## 🌍 Live demo
 
-| 🖱️ | Open | What you'll get |
-| --- | --- | --- |
-| 🎀 **App** | **<https://warewise-client.onrender.com>** | The deployed React UI — the login screen is the first thing you'll see |
-| 🌷 **API** | <https://warewise-api.onrender.com/api/health> | Typed API liveness (`200 ok`) |
-| 📊 **Readiness** | <https://warewise-api.onrender.com/ready> | `database` / `redis` wiring status |
-| 📏 **Metrics** | <https://warewise-api.onrender.com/metrics> | Prometheus-style plain text |
-| 🔮 **Forecasting** | <https://warewise-ml.onrender.com/health> | ML service liveness |
+**👉 <https://warewise-client.onrender.com> 👈** — the only link you need. Open it, sign
+in with a demo account and click through the whole app (marketplace, product details,
+ordering, profile, sales predictions).
 
-> 🤍 **Honest status label:** the deployment is real — every link above answers right
-> now (allow about a minute if the free tier has been idle). What it does *not* do yet:
-> the SPA still points its sign-in, registration and marketplace calls at the retired
-> hackathon backend, so **login flows will not complete**. Auth, users and products on
-> the typed API are the in-progress milestone
-> ([docs/IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md)). A visitor can click
-> through the deployed UI and inspect live health, readiness, metrics and forecast
-> endpoints today.
+### 🎀 Demo login
+
+| Role | Email | Password |
+| --- | --- | --- |
+| 🟣 **Supplier** (list products, see bookings) | `johndoe@example.com` | `password123` |
+| 🔵 **Employee** (browse, order, forecasts) | `janesmith@example.com` | `password456` |
+
+Five more seeded accounts are ready too — `michaeljohnson@example.com` /
+`password789`, `emilydavis@example.com` / `password101`, `davidwilson@example.com` /
+`password102`, `sophiamartinez@example.com` / `password103`,
+`danielanderson@example.com` / `password104` (see `server/src/db/seed.ts`).
+New registrations work as well.
+
+> 🤍 **Honest status label:** the deployment is real — sign-in, registration, password
+> reset, the product marketplace, booking/ordering, profiles and the sales-prediction
+> chart all run end to end (allow about a minute if the free tier has been idle). What is
+> still honest-to-goodness demo grade: forecasts come from a deterministic baseline
+> model (no trained models yet), the payment page is a static mock, and free-tier
+> Postgres **expires 30 days after provisioning**. Sessions/RBAC and the orders/payments
+> modules remain the in-progress milestone
+> ([docs/IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md)).
 
 ---
 
@@ -137,19 +146,19 @@ WareWise began as a hackathon prototype and is being rebuilt in stages for real-
 use. Nothing here pretends to be finished: [docs/IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md)
 separates what runs from what is planned.
 
-There is no complete hosted production version yet, and the credentials from the old
-prototype have been removed from the repository for security. A live instance of the
-current stack **is** running — see [🌍 Live demo](#-live-demo) — and the Render Blueprint
-above is the fastest way to review the current stack end to end. 🌷
+There is no complete hosted production version yet, but a live instance of the current
+stack **is** running with published demo credentials — see [🌍 Live demo](#-live-demo) —
+and the Render Blueprint above is the fastest way to review the current stack end to end. 🌷
 
 | State | Area |
 | --- | --- |
 | ✅ **Running** | Typed API foundation (helmet, strict body limit, CORS allowlist, request ids, redacted structured logs, rate limiting, liveness, truthful readiness, metrics) |
+| ✅ **Running** | Auth, users and products on the typed API (Prisma + Render Postgres): register/login/password-reset, profiles, paginated marketplace feeds, bookings, demo seed — serving the live demo |
 | ✅ **Running** | FastAPI contract foundation (health, readiness, validated single/batch forecasts, baseline recommendations) |
 | ✅ **Running** | React client builds with Vite; app shell, router and protected-route composition; zero lint warnings |
 | ✅ **Running** | Render Blueprint deployment definition, `GET /api/health`, `0.0.0.0:$PORT` binding, `VITE_API_BASE_URL` plumbing |
 | ✅ **Running** | Live Render deployment serving traffic: `warewise-client`, `warewise-api`, `warewise-ml` (Postgres + Key Value provisioned) |
-| 🚧 **In progress** | PostgreSQL/Prisma schema and migrations · auth, sessions, RBAC · inventory, orders, payments modules · API→ML proxy |
+| 🚧 **In progress** | Sessions, RBAC · inventory, orders, payments modules |
 | 🌱 **Planned** | Object storage · email · blockchain reconciliation · React TypeScript migration · integration & end-to-end tests · trained forecasting models |
 
 ---
@@ -261,7 +270,8 @@ files before starting the API. Never commit real passwords, keys or `.env` files
 
 ## 🩺 Endpoints
 
-**Typed API** — `server/` · live: <https://warewise-api.onrender.com>
+**Typed API** — `server/` (deployed as `warewise-api`; the browser reaches it through
+`VITE_API_BASE_URL`):
 
 | Method | Path | Purpose |
 | --- | --- | --- |
@@ -269,15 +279,21 @@ files before starting the API. Never commit real passwords, keys or `.env` files
 | `GET` | `/health` · `/api/v1/health` | Liveness (plain and versioned) |
 | `GET` | `/ready` | Dependency readiness; `503` until Postgres and Redis are configured |
 | `GET` | `/metrics` | Prometheus-style plain-text metric |
+| `POST` | `/auth/register` · `/auth/login` | Demo registration and sign-in (multipart avatar, JWT) |
+| `POST` | `/auth/verify-email` · `/auth/reset-password-security` | Forgot-password flow |
+| `GET`·`PATCH` | `/users/:id` | Profile read/update (Bearer token) |
+| `GET` | `/products` · `/products/:userId/products` · `/products/:userId/bookedproducts` | Paginated feeds |
+| `GET`·`POST`·`PATCH`·`DELETE` | `/products/:productId/…` | Detail, create, booking toggle, delete |
+| `GET` | `/assets/*` | Avatars (uploaded bytes or generated initials SVG) |
+| `GET` | `/predictMonthly?month&year` | Monthly forecast series (proxies `warewise-ml`, falls back locally) |
 
-**Forecasting service** — `ml-service/` (live: <https://warewise-ml.onrender.com>):
+**Forecasting service** — `ml-service/` (deployed as `warewise-ml`, private to the API):
 `GET /health`, `GET /ready`,
 `POST /api/v1/forecast`, `POST /api/v1/forecast/batch`,
 `GET /api/v1/forecast/{productId}`. Contract: [docs/ML_SPEC.md](docs/ML_SPEC.md).
 
-**Legacy prototype** — `server/index.js` (Mongoose + MongoDB, requires `MONGO_URL`;
-not deployed — its former host is retired): `/auth/*`, `/users/*`, `/products/*`
-and `GET /api/health`.
+**Legacy prototype** — `server/index.js` (Mongoose + MongoDB, requires `MONGO_URL`; not
+deployed — its former host is retired; its route shapes now live on the typed API above).
 
 ## 🧪 Quality gates
 

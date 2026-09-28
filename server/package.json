@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@prisma/client": "^6.19.3",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
@@ -25,9 +26,13 @@
     "test": "npm run build:typed && node --test"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.2.0",
     "@types/node": "^22.10.2",
+    "prisma": "^6.19.3",
     "typescript": "^5.7.2"
   },
   "keywords": [],

@@ -5,6 +5,7 @@ import { Box } from '@mui/material';
 import Navbar from '../navbar';
 import ProductDetailWidget from '../widgets/ProductDetailWidget';
 import { setProduct } from '../../state'; // Ensure correct import path
+import { apiUrl } from '../../config/api';
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const ProductDetail = () => {
 
   const getProduct = useCallback(async () => {
     const response = await fetch(
-      `https://intelligent-supplychain-management.onrender.com/products/${productId}/product`,
+      apiUrl(`/products/${productId}/product`),
       {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },

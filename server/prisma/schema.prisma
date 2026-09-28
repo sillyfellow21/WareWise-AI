@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Application users. Mirrors the legacy Mongoose User document so the React
+/// client (which reads `_id`, `picturePath`, `phoneNumber`, ...) keeps working:
+/// controllers map `id` to `_id` in `src/lib/serialize.ts`.
+model User {
+  id               String   @id @default(cuid())
+  firstName        String
+  lastName         String
+  email            String   @unique
+  password         String
+  picturePath      String   @default("")
+  // Data URI of an uploaded avatar (register uses multipart); seed users have
+  // no data and fall back to a generated SVG served from /assets.
+  pictureData      String?
+  role             String?
+  location         String?
+  employeeId       String?
+  supplierId       String?
+  phoneNumber      String?
+  securityQuestion String
+  securityAnswer   String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+/// Marketplace products. `bookings` mirrors the legacy Map<String, Boolean>
+/// (serialized as a plain object) where a key is a booking userId.
+model Product {
+  id           String   @id @default(cuid())
+  userId       String
+  name         String
+  description  String?
+  price        Float
+  quantity     Float
+  minQuantity  Float?
+  reorderPoint Float?
+  maxQuantity  Float?
+  status       String?
+  category     String
+  bookings     Json?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([userId])
+}

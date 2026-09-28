@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 import WidgetWrapper from '../../components/WidgetWrapper';
+import { apiUrl } from '../../config/api';
 import { useMediaQuery } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProduct } from '../../state';
@@ -28,7 +29,7 @@ const ProductWidget = ({
 
   const deleteProduct = async () => {
     const response = await fetch(
-      `https://intelligent-supplychain-management.onrender.com/products/${productUserId}/${productId}/delete`,
+      apiUrl(`/products/${productUserId}/${productId}/delete`),
       {
         method: 'DELETE',
         headers: {

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Navbar from '../navbar';
+import { apiUrl } from '../../config/api';
 import UserWidget from '../widgets/UserWidget';
 
 import { Typography } from '@mui/material';
@@ -16,7 +17,7 @@ const EmployeeProfilePage = () => {
 
   const getUser = async () => {
     const response = await fetch(
-      `https://intelligent-supplychain-management.onrender.com/users/${userId}`,
+      apiUrl(`/users/${userId}`),
       {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },

@@ -5,7 +5,6 @@ import Product from "../models/Product.js";
 export const createProduct = async (req, res) => {
   try {
     const {
-      userId,
       name,
       description,
       price,
@@ -16,8 +15,11 @@ export const createProduct = async (req, res) => {
       category,
       status,
     } = req.body;
-    const user = await User.findById(userId);
-    console.log("inside try");
+    const userId = req.user.id;
+    const user = await User.findById(userId).select("_id role");
+    if (!user) {
+      return res.status(401).json({ message: "Authenticated user not found" });
+    }
     const newProduct = new Product({
       userId,
       name,
@@ -32,8 +34,6 @@ export const createProduct = async (req, res) => {
       bookings: {},
     });
     await newProduct.save();
-    console.log("Saved Product");
-
     const product = await Product.find(); //grabs all the Products and display it on frontend
     res.status(201).json(product);
   } catch (err) {
@@ -194,8 +194,8 @@ export const getUserProducts = async (req, res) => {
 /*DELETE*/
 export const deleteProduct = async (req, res) => {
   try {
-    const { productId, userId } = req.params; // Assuming userId is passed as a parameter
-    // Alternatively, you can use req.query or req.body depending on how userId is passed
+    const { productId } = req.params;
+    const userId = req.user.id;
 
     // Find the product by ID
     const product = await Product.findById(productId);
@@ -206,7 +206,7 @@ export const deleteProduct = async (req, res) => {
     }
 
     // Check if the user is the owner of the product
-    if (product.userId !== userId) {
+    if (product.userId !== userId && req.user.role !== "admin") {
       return res
         .status(403)
         .json({ message: "You are not authorized to delete this product" });
@@ -235,7 +235,9 @@ export const updateProduct = async (req, res) => {
       return res.status(404).json({ message: "product not found" });
     }
 
-    // Check if the logged-in user is the owner of the product
+    if (product.userId !== req.user.id && req.user.role !== "admin") {
+      return res.status(403).json({ message: "You are not authorized to update this product" });
+    }
 
     // Update product details with the provided updates
     Object.assign(product, updates);
@@ -256,7 +258,7 @@ export const updateProduct = async (req, res) => {
 export const BookProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { userId } = req.body;
+    const userId = req.user.id;
     const product = await Product.findById(id);
 
     if (!product) {

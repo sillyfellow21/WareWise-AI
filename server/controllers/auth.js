@@ -20,6 +20,9 @@ export const register = async (req, res) => {
       securityQuestion,
       securityAnswer,
     } = req.body;
+    if (!['employee', 'supplier'].includes(role)) {
+      return res.status(400).json({ message: 'A valid self-registration role is required' });
+    }
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
     const hashedSecurityAnswer = await bcrypt.hash(securityAnswer, salt);
@@ -54,9 +57,13 @@ export const login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid Password" });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-    delete user.password;
-    res.status(200).json({ token, user });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "15m",
+    });
+    const safeUser = user.toObject();
+    delete safeUser.password;
+    delete safeUser.securityAnswer;
+    res.status(200).json({ token, user: safeUser });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

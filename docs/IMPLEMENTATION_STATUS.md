@@ -15,6 +15,12 @@ This file separates executable behavior from the target specifications.
 	components have explicit prop contracts, asynchronous effects declare their
 	dependencies, and the full client lint now passes with zero errors or
 	warnings.
+- Legacy API identity hardening: authenticated requests reload the current user
+	role, product and profile routes enforce self-access and role checks, product
+	mutations use the token identity instead of request-body identity, and access
+	tokens expire after 15 minutes.
+- Authorization middleware tests cover allowed roles, denied roles, and
+	cross-user resource access.
 
 ## Not implemented yet
 

@@ -8,21 +8,27 @@ import {
   getBookedProducts,
   BookProduct,
 } from "../controllers/products.js";
-import { verifyToken } from "../middleware/auth.js";
+import { requireRole, requireSelf, verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
 
 /*READ*/
 router.get("/", getFeedProducts);
-router.get("/:userId/products", getUserProducts);
+router.get("/:userId/products", verifyToken, requireSelf("userId"), getUserProducts);
 router.get("/:productId/product", getProductDetails);
-router.get("/:userId/bookedproducts", getBookedProducts);
+router.get("/:userId/bookedproducts", verifyToken, requireSelf("userId"), getBookedProducts);
 
 /*UPDATE*/
-router.patch("/:productId/update", verifyToken, updateProduct); // Define the update route
-router.patch("/:id/booking", verifyToken, BookProduct);
+router.patch("/:productId/update", verifyToken, requireRole("supplier", "admin"), updateProduct);
+router.patch("/:id/booking", verifyToken, requireRole("employee"), BookProduct);
 
 /* DELETE */
-router.delete("/:userId/:productId/delete", verifyToken, deleteProduct);
+router.delete(
+  "/:userId/:productId/delete",
+  verifyToken,
+  requireSelf("userId"),
+  requireRole("supplier", "admin"),
+  deleteProduct,
+);
 
 export default router;

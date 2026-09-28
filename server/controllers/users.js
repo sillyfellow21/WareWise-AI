@@ -3,7 +3,10 @@ import User from "../models/User.js";
 export const getUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await User.findById(id);
+    const user = await User.findById(id).select('-password -securityAnswer');
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
     res.status(200).json(user);
   } catch (err) {
     res.status(403).json({ message: err.message });
@@ -14,16 +17,21 @@ export const getUser = async (req, res) => {
 export const updateUserDetails = async (req, res) => {
   try {
     const { id } = req.params; // Assuming the user ID is passed in the request params
-    const updates = req.body; // Assuming the updated user details are sent in the request body
+    const allowedFields = ["firstName", "lastName", "picturePath", "location", "phoneNumber"];
+    const updates = Object.fromEntries(
+      Object.entries(req.body).filter(([field]) => allowedFields.includes(field)),
+    );
 
     const user = await User.findById(id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Update user details with the provided updates
     Object.assign(user, updates);
     await user.save();
+
+    user.password = undefined;
+    user.securityAnswer = undefined;
 
     res
       .status(200)

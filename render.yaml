@@ -1,0 +1,191 @@
+# WareWise Render Blueprint
+#
+# One file provisions the whole monorepo on Render:
+#   client/      -> warewise-client  static site (Vite React SPA, global CDN)
+#   server/      -> warewise-api     Node.js web service (typed Express API)
+#   ml-service/  -> warewise-ml      Python web service (FastAPI forecasting)
+#   -            -> warewise-db      Render Postgres (system of record)
+#   -            -> warewise-cache   Render Key Value (Redis-compatible cache/queues)
+#
+# Resource name table (keep every name/fromService/fromDatabase reference in sync):
+#   static site : warewise-client
+#   web service : warewise-api
+#   web service : warewise-ml
+#   postgres    : warewise-db
+#   key value   : warewise-cache
+#
+# Prerequisites before the first sync:
+#   1. Push this file to the branch Render deploys (see `branch` below).
+#   2. Render Dashboard: New + > Blueprint, pick this repository, click Apply.
+#   3. Read docs/DEPLOYMENT_SPEC.md ("Render Blueprint") for the free-tier trade-offs.
+#
+# Free-plan behaviour that shapes this file (see https://render.com/docs/free):
+#   - Free web services spin down after 15 minutes without inbound traffic and need
+#     about a minute to wake up again (cold start on the next request).
+#   - Free web services can *send* private-network requests but cannot *receive* them,
+#     so warewise-api reaches warewise-ml over its public HTTPS URL on the free plan.
+#     The paid private-network alternative is documented inline.
+#   - Free Postgres expires 30 days after creation, has no backups and no connection
+#     pooling. Upgrade the database plan before using this for anything real.
+
+# ---------------------------------------------------------------------------
+# Managed datastores
+# ---------------------------------------------------------------------------
+databases:
+  - name: warewise-db
+    databaseName: warewise
+    user: warewise
+    plan: free
+    region: oregon
+    postgresMajorVersion: '16' # Matches docker-compose.yml (postgres:16-alpine)
+    ipAllowList: [] # Internal-only: no public internet access, private network only
+
+# ---------------------------------------------------------------------------
+# Application services
+# ---------------------------------------------------------------------------
+services:
+  # -------------------------------------------------------------------------
+  # Static site: React client (client/)
+  # -------------------------------------------------------------------------
+  - type: web
+    name: warewise-client
+    runtime: static
+    branch: main
+    # Static sites have no compute plan: hosting is free and served from the CDN.
+    rootDir: client
+    buildCommand: npm ci --include=dev && npm run build
+    staticPublishPath: ./dist
+    autoDeployTrigger: commit
+    # SPA routing: the React router owns every path, so serve index.html for all of them.
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /index.html
+        name: Cache-Control
+        value: no-cache, no-store, must-revalidate
+    envVars:
+      - key: NODE_VERSION
+        value: 22.12.0
+      # Build-time value consumed by client/src/config/api.js. Keep it in sync with
+      # the `warewise-api` service name, and update it if you attach a custom domain.
+      - key: VITE_API_BASE_URL
+        value: https://warewise-api.onrender.com
+
+  # -------------------------------------------------------------------------
+  # Node.js API (server/ typed migration target: src/server.ts)
+  # -------------------------------------------------------------------------
+  - type: web
+    name: warewise-api
+    runtime: node
+    branch: main
+    plan: free
+    region: oregon
+    rootDir: server
+    # --include=dev keeps TypeScript available for the build (NODE_ENV=production
+    # would otherwise omit devDependencies).
+    buildCommand: npm ci --include=dev && npm run build:typed
+    startCommand: npm run start:typed
+    # Render probes this path and only shifts traffic once it answers 2xx/3xx.
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_VERSION
+        value: 22.12.0
+      - key: NODE_ENV
+        value: production
+      # Render injects PORT for this service; src/config/env.ts reads PORT first, then
+      # API_PORT, and src/server.ts binds the result to 0.0.0.0.
+      #
+      # DATABASE_URL is the internal connection string for services in the same
+      # workspace and region.
+      - key: DATABASE_URL
+        fromDatabase:
+          name: warewise-db
+          property: connectionString
+      # Private-network Redis URL (redis://...) injected by the Key Value reference.
+      - key: REDIS_URL
+        fromService:
+          name: warewise-cache
+          type: keyvalue
+          property: connectionString
+      # Free plan: `host` is the public hostname (warewise-ml.onrender.com) and
+      # src/config/env.ts upgrades a dotted host to https://. On paid plans, switch
+      # warewise-ml to `type: pserv` and use
+      #   fromService: { name: warewise-ml, type: pserv, property: hostport }
+      # which resolves to the undotted private address (warewise-ml:10000) and is
+      # normalized to http:// by the same helper.
+      - key: ML_SERVICE_URL
+        fromService:
+          name: warewise-ml
+          type: web
+          property: host
+      # Browser origin allowlist (comma separated). Keep the first value in sync with
+      # the warewise-client service URL; the second entry keeps local Vite working.
+      - key: CORS_ORIGINS
+        value: https://warewise-client.onrender.com,http://localhost:5173
+      # Generated once on the first sync and preserved on later syncs.
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+
+  # -------------------------------------------------------------------------
+  # Python forecasting service (ml-service/, FastAPI + uvicorn)
+  # -------------------------------------------------------------------------
+  - type: web
+    name: warewise-ml
+    runtime: python
+    branch: main
+    plan: free
+    region: oregon
+    rootDir: ml-service
+    buildCommand: pip install -r requirements.txt
+    # Bind the public interface and read the port Render injects (Render sets PORT).
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      # Fully qualified version, required by the Render Python runtime; matches the
+      # python:3.12-slim base image used in ml-service/Dockerfile.
+      - key: PYTHON_VERSION
+        value: 3.12.7
+
+  # -------------------------------------------------------------------------
+  # Key Value (Redis-compatible) instance
+  # -------------------------------------------------------------------------
+  - type: keyvalue
+    name: warewise-cache
+    plan: free
+    region: oregon
+    ipAllowList: [] # Internal-only: reachable over the private network
+
+# ---------------------------------------------------------------------------
+# Optional: legacy prototype API (server/index.js, Mongoose + MongoDB)
+# ---------------------------------------------------------------------------
+# The typed service above is the migration target and owns /api/health, readiness,
+# metrics and the CORS allowlist. To also host the original prototype routes
+# (auth, users, products), add a second web service. Render has no managed MongoDB,
+# so point MONGO_URL at an external cluster (for example MongoDB Atlas):
+#
+#   - type: web
+#     name: warewise-api-legacy
+#     runtime: node
+#     branch: main
+#     plan: free
+#     region: oregon
+#     rootDir: server
+#     buildCommand: npm ci
+#     startCommand: node index.js
+#     healthCheckPath: /api/health
+#     envVars:
+#       - key: NODE_VERSION
+#         value: 22.12.0
+#       - key: MONGO_URL
+#         sync: false # Paste the Atlas connection string in the Render Dashboard
+#       - key: JWT_SECRET
+#         generateValue: true

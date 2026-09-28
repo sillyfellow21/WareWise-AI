@@ -1,3 +1,4 @@
+import type { RequestHandler } from 'express';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
@@ -19,9 +20,14 @@ app.use(rateLimit);
 
 const startedAt = Date.now();
 
-app.get('/health', (_request, response) => {
+const liveness: RequestHandler = (_request, response) => {
   response.json({ data: { status: 'ok' } });
-});
+};
+
+app.get('/health', liveness);
+// Render health check target (`healthCheckPath` in render.yaml). Answers 200 so new
+// instances only receive traffic once they are serving requests.
+app.get('/api/health', liveness);
 
 app.get('/ready', (_request, response) => {
   const checks = {
@@ -32,9 +38,7 @@ app.get('/ready', (_request, response) => {
   response.status(ready ? 200 : 503).json({ data: { status: ready ? 'ready' : 'not_ready', checks } });
 });
 
-app.get('/api/v1/health', (_request, response) => {
-  response.json({ data: { status: 'ok' } });
-});
+app.get('/api/v1/health', liveness);
 
 app.get('/metrics', (_request, response) => {
   response.type('text/plain').send(

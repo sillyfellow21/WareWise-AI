@@ -19,6 +19,12 @@ test('health is live and returns a request id', async () => {
   assert.match(response.headers.get('x-request-id'), /^req_/);
 });
 
+test('platform health check target answers 200', async () => {
+  const response = await fetch(`${baseUrl}/api/health`);
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), { data: { status: 'ok' } });
+});
+
 test('readiness reports missing dependencies instead of claiming ready', async () => {
   const response = await fetch(`${baseUrl}/ready`);
   assert.equal(response.status, 503);

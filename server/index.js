@@ -47,20 +47,27 @@ const upload = multer({ storage });
 app.post("/auth/register", upload.single("picture"), register);
 app.post("/products", upload.single("picture"), verifyToken, createProduct);
 
+/*HEALTH CHECK*/
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ data: { status: "ok" } });
+});
+
 /*ROUTES*/
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/products", productRoutes);
 
 /* MONGOOSE SETUP*/
-const PORT = process.env.PORT || 6001;
+// Render injects PORT; API_PORT keeps local development working. The server binds to
+// 0.0.0.0 so Render health checks and the proxy can reach it.
+const PORT = process.env.PORT || process.env.API_PORT || 6001;
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(PORT, () =>
+    app.listen(PORT, "0.0.0.0", () =>
       console.log(`Server Port : ${PORT} running successfully`)
     );
 

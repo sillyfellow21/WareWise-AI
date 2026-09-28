@@ -4,6 +4,7 @@ Base path: `/api/v1`. JSON responses use `{ data }` for success and `{ error: { 
 
 ## Health
 - `GET /health` liveness.
+- `GET /api/health` platform liveness for the Render health check and deploy gate; identical payload to `/health`, with `GET /api/v1/health` as the versioned equivalent.
 - `GET /ready` dependency readiness.
 - `GET /metrics` restricted operational metrics.
 

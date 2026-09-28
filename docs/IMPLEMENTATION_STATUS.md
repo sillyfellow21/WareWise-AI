@@ -15,6 +15,13 @@ This file separates executable behavior from the target specifications.
 	components have explicit prop contracts, asynchronous effects declare their
 	dependencies, and the full client lint now passes with zero errors or
 	warnings.
+- Render Blueprint deployment definition: `render.yaml` provisions the client
+	static site, the typed Node API, the FastAPI forecasting service, Render
+	Postgres, and Render Key Value with generated secrets, internal database and
+	Key Value wiring, free-plan-appropriate plans, and platform health checks.
+	The API now serves `GET /api/health`, both application services read the
+	platform `PORT` and bind `0.0.0.0`, and the client resolves its API origin
+	from `VITE_API_BASE_URL`.
 
 ## Not implemented yet
 
@@ -26,7 +33,7 @@ This file separates executable behavior from the target specifications.
 - Blockchain service, contract deployment scripts, confirmation reconciliation, and contract tests.
 - React TypeScript migration and feature-based client modules beyond the new
 	app composition foundation.
-- Object storage, email delivery, observability export, OpenAPI generation, integration tests, end-to-end tests, and deployment workflow.
+- Object storage, email delivery, observability export, OpenAPI generation, integration tests, end-to-end tests, and deployment workflow beyond the Render Blueprint.
 - Trained forecasting models, historical-data validation, model evaluation, and model registry.
 
 ## Required owner actions
@@ -39,6 +46,7 @@ This file separates executable behavior from the target specifications.
 6. Provide representative non-sensitive historical sales data and define forecast accuracy and approval thresholds.
 7. Create GitHub repository secrets and enable branch protection requiring CI, review, and successful migrations.
 8. Run `docker compose up -d postgres redis`, then replace local values with real staging values before integration testing.
+9. Apply `render.yaml` in the Render Dashboard, confirm the service names still match the `VITE_API_BASE_URL` and `CORS_ORIGINS` values, and replace the free compute plans before serving real traffic.
 
 ## Recommended implementation order
 

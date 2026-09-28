@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
+import { apiUrl } from '../services/api';
 
 const UserImage = ({ image, size = '60px' }) => {
   return (
@@ -9,7 +10,7 @@ const UserImage = ({ image, size = '60px' }) => {
         width={size}
         height={size}
         alt="user"
-        src={`https://intelligent-supplychain-management.onrender.com/assets/${image}`}
+        src={apiUrl(`/assets/${image}`)}
       />
     </Box>
   );

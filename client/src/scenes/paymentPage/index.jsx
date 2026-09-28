@@ -1,4 +1,3 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useState } from 'react';
 import { formatEther } from 'viem/utils';
 import { parseEther } from 'viem';
@@ -18,6 +17,7 @@ import {
 } from '@mui/material';
 import { useAccount, useReadContract, useWriteContract } from 'wagmi';
 import Navbar from '../navbar';
+import WalletButton from '../../components/WalletButton';
 
 const PaymentPage = () => {
   const { address, isConnected } = useAccount();
@@ -178,7 +178,7 @@ const PaymentPage = () => {
                   yours.
                 </Typography>
                 <Box sx={{ mt: 5 }}>
-                  <ConnectButton />
+                  <WalletButton />
                 </Box>
               </Box>
             </Box>

@@ -6,6 +6,7 @@ import { useMediaQuery } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProduct } from '../../state';
 import Button from '@mui/material/Button'; // Updated import
+import { apiUrl } from '../../services/api';
 
 const ProductWidget = ({
   productId,
@@ -28,7 +29,7 @@ const ProductWidget = ({
 
   const deleteProduct = async () => {
     const response = await fetch(
-      `https://intelligent-supplychain-management.onrender.com/products/${productUserId}/${productId}/delete`,
+          apiUrl(`/products/${productUserId}/${productId}/delete`),
       {
         method: 'DELETE',
         headers: {

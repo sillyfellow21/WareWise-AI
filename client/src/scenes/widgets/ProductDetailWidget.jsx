@@ -8,6 +8,7 @@ import { Button } from '@mui/material';
 import { useMediaQuery } from '@mui/material';
 import { setProduct } from '../../state';
 import BookedUserWidget from './BookedUserWidget';
+import { apiUrl } from '../../services/api';
 
 const ProductDetailWidget = ({
   productId,
@@ -40,7 +41,7 @@ const ProductDetailWidget = ({
 
   const patchProduct = async () => {
     const response = await fetch(
-      `https://intelligent-supplychain-management.onrender.com/products/${productId}/booking`,
+      apiUrl(`/products/${productId}/booking`),
       {
         method: 'PATCH',
         headers: {

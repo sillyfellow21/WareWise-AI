@@ -6,7 +6,6 @@ import authReducer from "./state";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { Providers } from "./providers.jsx";
-import '@rainbow-me/rainbowkit/styles.css';
 import {
   persistStore,
   persistReducer,

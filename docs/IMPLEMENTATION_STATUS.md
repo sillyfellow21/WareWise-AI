@@ -21,6 +21,10 @@ This file separates executable behavior from the target specifications.
 	tokens expire after 15 minutes.
 - Authorization middleware tests cover allowed roles, denied roles, and
 	cross-user resource access.
+- Free local runtime path: RainbowKit/WalletConnect and the hosted prediction
+	dependency were removed; Wagmi injected wallets and a configurable local ML
+	service are used instead. Licensing and unavoidable hosted costs are listed
+	in `docs/LICENSING_AND_FREE_STACK.md`.
 
 ## Not implemented yet
 

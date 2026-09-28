@@ -21,6 +21,7 @@ import {
 } from '@mui/material';
 
 import UserImage from '../../components/UserImage';
+import { apiUrl } from '../../services/api';
 import WidgetWrapper from '../../components/WidgetWrapper';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -72,7 +73,7 @@ const MyProductWidget = ({ picturePath }) => {
     formData.append('category', category);
 
     const response = await fetch(
-      `https://intelligent-supplychain-management.onrender.com/products`,
+      apiUrl('/products'),
       {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` }, // Ensure token is valid

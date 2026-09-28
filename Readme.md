@@ -123,6 +123,7 @@ work and lists the decisions still needed from the project owner.
 - [Forecasting requirements](https://github.com/sillyfellow21/WareWise-AI/blob/main/docs/ML_SPEC.md)
 - [Blockchain requirements](https://github.com/sillyfellow21/WareWise-AI/blob/main/docs/BLOCKCHAIN_SPEC.md)
 - [Deployment requirements](https://github.com/sillyfellow21/WareWise-AI/blob/main/docs/DEPLOYMENT_SPEC.md)
+- [Licensing and free self-hosted stack](https://github.com/sillyfellow21/WareWise-AI/blob/main/docs/LICENSING_AND_FREE_STACK.md)
 - [Implementation status](https://github.com/sillyfellow21/WareWise-AI/blob/main/docs/IMPLEMENTATION_STATUS.md)
 
 ## Privacy and security

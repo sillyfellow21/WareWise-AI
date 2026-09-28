@@ -8,6 +8,7 @@ import {
 } from '@mui/icons-material';
 import { Box, Typography, Divider, useTheme, TextField, Button } from '@mui/material';
 import UserImage from '../../components/UserImage';
+import { apiUrl } from '../../services/api';
 import FlexBetween from '../../components/FlexBetween';
 import WidgetWrapper from '../../components/WidgetWrapper';
 import { useSelector } from 'react-redux';
@@ -28,7 +29,7 @@ const UserWidget = ({ userId, picturePath }) => {
 
   const getUser = async () => {
     const response = await fetch(
-      `https://intelligent-supplychain-management.onrender.com/users/${userId}`,
+      apiUrl(`/users/${userId}`),
       {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },
@@ -53,7 +54,7 @@ const UserWidget = ({ userId, picturePath }) => {
   const handleSave = async () => {
     // Send updated user details to backend for saving
     try {
-      await fetch(`https://intelligent-supplychain-management.onrender.com/users/${userId}`, {
+          await fetch(apiUrl(`/users/${userId}`), {
         method: 'PATCH', // Use PATCH method for partial updates
         headers: {
           'Content-Type': 'application/json',

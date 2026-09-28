@@ -4,6 +4,7 @@ import { Box, CircularProgress, TextField, Typography } from '@mui/material';
 import Navbar from '../../scenes/navbar';
 
 const PredictionPage = () => {
+  const mlServiceUrl = import.meta.env.VITE_ML_SERVICE_URL || 'http://localhost:8000';
   const [monthlySales, setMonthlySales] = useState([]);
   const [year, setYear] = useState(2000);
   const [loading, setLoading] = useState(true);
@@ -20,7 +21,7 @@ const PredictionPage = () => {
 
       for (let month = 0; month < 12; month++) {
         const response = await fetch(
-          `https://sparkathon24.pankajkush.club/predictMonthly?month=${month + 1}&year=${year}`,
+          `${mlServiceUrl}/api/v1/forecast/monthly?month=${month + 1}&year=${year}`,
           {
             method: 'GET',
           },
@@ -47,7 +48,7 @@ const PredictionPage = () => {
       console.error('Error fetching predictions', error);
       setLoading(false); // End loading even if there's an error
     }
-  }, [year]);
+  }, [mlServiceUrl, year]);
 
   useEffect(() => {
     getPredictionsMonthly();

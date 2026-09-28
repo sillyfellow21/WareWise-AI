@@ -19,6 +19,7 @@
 [![Vibes](https://img.shields.io/badge/vibes-pastel%20%E2%9C%A8-FFB6C1?style=flat-square)](#-project-status)
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/sillyfellow21/WareWise-AI)
+[![Live demo](https://img.shields.io/badge/live-demo-46E3B7?style=flat-square&logo=render&logoColor=white)](https://warewise-client.onrender.com)
 
 </div>
 
@@ -37,6 +38,27 @@ Forecasts are recommendations, not automatic orders. 🌱
 | plan stock | approve orders | forecast demand |
 
 </div>
+
+---
+
+## 🌍 Live demo
+
+| 🖱️ | Open | What you'll get |
+| --- | --- | --- |
+| 🎀 **App** | **<https://warewise-client.onrender.com>** | The deployed React UI — the login screen is the first thing you'll see |
+| 🌷 **API** | <https://warewise-api.onrender.com/api/health> | Typed API liveness (`200 ok`) |
+| 📊 **Readiness** | <https://warewise-api.onrender.com/ready> | `database` / `redis` wiring status |
+| 📏 **Metrics** | <https://warewise-api.onrender.com/metrics> | Prometheus-style plain text |
+| 🔮 **Forecasting** | <https://warewise-ml.onrender.com/health> | ML service liveness |
+
+> 🤍 **Honest status label:** the deployment is real — every link above answers right
+> now (allow about a minute if the free tier has been idle). What it does *not* do yet:
+> the SPA still points its sign-in, registration and marketplace calls at the retired
+> hackathon backend, so **login flows will not complete**. Auth, users and products on
+> the typed API are the in-progress milestone
+> ([docs/IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md)). A visitor can click
+> through the deployed UI and inspect live health, readiness, metrics and forecast
+> endpoints today.
 
 ---
 
@@ -116,8 +138,9 @@ use. Nothing here pretends to be finished: [docs/IMPLEMENTATION_STATUS.md](docs/
 separates what runs from what is planned.
 
 There is no complete hosted production version yet, and the credentials from the old
-prototype have been removed from the repository for security. The Render Blueprint above
-is the fastest way to review the current stack end to end. 🌷
+prototype have been removed from the repository for security. A live instance of the
+current stack **is** running — see [🌍 Live demo](#-live-demo) — and the Render Blueprint
+above is the fastest way to review the current stack end to end. 🌷
 
 | State | Area |
 | --- | --- |
@@ -125,6 +148,7 @@ is the fastest way to review the current stack end to end. 🌷
 | ✅ **Running** | FastAPI contract foundation (health, readiness, validated single/batch forecasts, baseline recommendations) |
 | ✅ **Running** | React client builds with Vite; app shell, router and protected-route composition; zero lint warnings |
 | ✅ **Running** | Render Blueprint deployment definition, `GET /api/health`, `0.0.0.0:$PORT` binding, `VITE_API_BASE_URL` plumbing |
+| ✅ **Running** | Live Render deployment serving traffic: `warewise-client`, `warewise-api`, `warewise-ml` (Postgres + Key Value provisioned) |
 | 🚧 **In progress** | PostgreSQL/Prisma schema and migrations · auth, sessions, RBAC · inventory, orders, payments modules · API→ML proxy |
 | 🌱 **Planned** | Object storage · email · blockchain reconciliation · React TypeScript migration · integration & end-to-end tests · trained forecasting models |
 
@@ -237,7 +261,7 @@ files before starting the API. Never commit real passwords, keys or `.env` files
 
 ## 🩺 Endpoints
 
-**Typed API** — `server/`
+**Typed API** — `server/` · live: <https://warewise-api.onrender.com>
 
 | Method | Path | Purpose |
 | --- | --- | --- |
@@ -246,12 +270,14 @@ files before starting the API. Never commit real passwords, keys or `.env` files
 | `GET` | `/ready` | Dependency readiness; `503` until Postgres and Redis are configured |
 | `GET` | `/metrics` | Prometheus-style plain-text metric |
 
-**Forecasting service** — `ml-service/`: `GET /health`, `GET /ready`,
+**Forecasting service** — `ml-service/` (live: <https://warewise-ml.onrender.com>):
+`GET /health`, `GET /ready`,
 `POST /api/v1/forecast`, `POST /api/v1/forecast/batch`,
 `GET /api/v1/forecast/{productId}`. Contract: [docs/ML_SPEC.md](docs/ML_SPEC.md).
 
-**Legacy prototype** — `server/index.js` (Mongoose + MongoDB, requires `MONGO_URL`):
-`/auth/*`, `/users/*`, `/products/*` and `GET /api/health`.
+**Legacy prototype** — `server/index.js` (Mongoose + MongoDB, requires `MONGO_URL`;
+not deployed — its former host is retired): `/auth/*`, `/users/*`, `/products/*`
+and `GET /api/health`.
 
 ## 🧪 Quality gates
 

@@ -2,122 +2,197 @@
 
 # 🌸 WareWise 🌸
 
-### ✧ supply chain & warehouse management with a forecasting brain ✧
+### 🍡 a friendly way to run a warehouse — plan stock, approve orders, forecast demand 🍡
 
-**Pastel on the outside, typed and tested on the inside.**
-
-[![Node.js](https://img.shields.io/badge/Node.js-22.x-3C873A?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Express](https://img.shields.io/badge/Express-4-000000?style=flat-square&logo=express&logoColor=white)](https://expressjs.com)
-[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=white)](https://react.dev)
-[![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org)
-[![Redis](https://img.shields.io/badge/Redis%20Key%20Value-Valkey%208-DC382D?style=flat-square&logo=redis&logoColor=white)](https://render.com/docs/key-value)
-[![Solidity](https://img.shields.io/badge/Solidity-Foundry-363636?style=flat-square&logo=solidity&logoColor=white)](https://book.getfoundry.sh)
-[![Render](https://img.shields.io/badge/Render-Blueprint-46E3B7?style=flat-square&logo=render&logoColor=white)](render.yaml)
-[![Vibes](https://img.shields.io/badge/vibes-pastel%20%E2%9C%A8-FFB6C1?style=flat-square)](#-project-status)
-
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/sillyfellow21/WareWise-AI)
-[![Live demo](https://img.shields.io/badge/live-demo-46E3B7?style=flat-square&logo=render&logoColor=white)](https://warewise-client.onrender.com)
-
-</div>
-
-> ・:\*:・ *"What do we have, what do we need, and what should we buy next?"* ・:\*:・
-
-WareWise brings **suppliers, employees, warehouse managers, sales history and payment
-records** into one tidy place. Stock levels, approvals and demand forecasts live behind
-one API, so a person — never a robot — stays in charge of every big decision.
-
-Forecasts are recommendations, not automatic orders. 🌱
-
-<div align="center">
-
-| 🧁 | 🌸 | 🍡 |
-| --- | --- | --- |
-| plan stock | approve orders | forecast demand |
+**Pastel on the outside, dependable on the inside.**
 
 </div>
 
 ---
 
-## 🌍 Live demo
+## 👉 Try it now
 
-**👉 <https://warewise-client.onrender.com> 👈** — the only link you need. Open it, sign
-in with a demo account and click through the whole app (marketplace, product details,
-ordering, profile, sales predictions).
+**https://warewise-client.onrender.com/**
 
-### 🎀 Demo login
+That is the only link you need. Taking it for a spin takes a minute:
 
-| Role | Email | Password |
-| --- | --- | --- |
-| 🟣 **Supplier** (list products, see bookings) | `johndoe@example.com` | `password123` |
-| 🔵 **Employee** (browse, order, forecasts) | `janesmith@example.com` | `password456` |
+1. Open the link in any browser — phone or laptop, nothing to install.
+2. Sign in with one of the demo accounts below (or create your own account).
+3. Click through the whole app — home page, product marketplace, product details,
+   ordering, your profile and the sales-prediction chart.
 
-Five more seeded accounts are ready too — `michaeljohnson@example.com` /
-`password789`, `emilydavis@example.com` / `password101`, `davidwilson@example.com` /
-`password102`, `sophiamartinez@example.com` / `password103`,
-`danielanderson@example.com` / `password104` (see `server/src/db/seed.ts`).
-New registrations work as well.
+> 🤍 **Tiny note:** if the first page takes about a minute to appear, the demo is just
+> waking up. It sleeps when nobody is visiting — reload once and it will be there.
 
-> 🤍 **Honest status label:** the deployment is real — sign-in, registration, password
-> reset, the product marketplace, booking/ordering, profiles and the sales-prediction
-> chart all run end to end (allow about a minute if the free tier has been idle). What is
-> still honest-to-goodness demo grade: forecasts come from a deterministic baseline
-> model (no trained models yet), the payment page is a static mock, and free-tier
-> Postgres **expires 30 days after provisioning**. Sessions/RBAC and the orders/payments
-> modules remain the in-progress milestone
-> ([docs/IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md)).
+### 🔑 Demo email & password
 
----
+| Who they are | What they can do | Email | Password |
+| --- | --- | --- | --- |
+| 🟣 **Supplier** | List products, see who booked them | `johndoe@example.com` | `password123` |
+| 🔵 **Employee** | Browse the marketplace, order, see forecasts | `janesmith@example.com` | `password456` |
 
-## ✨ Why WareWise
+Five more demo accounts are ready too:
 
-| Role | What they get |
+| Email | Password |
 | --- | --- |
-| 🏭 **Suppliers** | List products, share prices and availability, become visible to the businesses that need them. |
-| 🧑‍💼 **Employees** | Browse the marketplace, request items, track what their warehouse actually uses. |
-| 📋 **Warehouse managers** | Watch stock levels, review incoming and outgoing movements, approve replenishment before anything is ordered. |
-| 💜 **Everyone** | A shared product marketplace, inventory history, purchase workflows, demand forecasts and payment records with optional blockchain settlement. |
+| `michaeljohnson@example.com` | `password789` |
+| `emilydavis@example.com` | `password101` |
+| `davidwilson@example.com` | `password102` |
+| `sophiamartinez@example.com` | `password103` |
+| `danielanderson@example.com` | `password104` |
 
-### How it flows
+You can also register a brand-new account from the sign-up screen.
+
+> ⚠️ These logins are public on purpose — please don't keep anything personal in them.
+
+---
+
+## 🤔 What is WareWise, in plain words?
+
+Every business that buys or sells things keeps asking the same three questions:
+
+> *"What do we have, what do we need, and what should we buy next?"*
+
+WareWise answers them in **one shared place**. Suppliers, employees and warehouse
+managers all work from the same screen instead of juggling spreadsheets, chats and
+paper notes — and a forecasting helper studies past sales to suggest what will
+probably be needed next month.
+
+Two rules the product never breaks:
+
+- **People decide, not software.** A forecast is a suggestion; a human still approves it.
+- **Everything is recorded.** Deliveries, sales, returns and corrections leave a trace.
+
+---
+
+## 🧁 What can I do in the demo?
+
+- 🏠 **Home** — a quick overview with shortcuts to everything else.
+- 🛍️ **Marketplace** — every product suppliers have listed, with prices and stock.
+- 📄 **Product details** — a closer look at one item, and the button to order it.
+- 📦 **My products** *(suppliers)* — add your own products and see who booked them.
+- 👤 **Profile** — update your details and profile picture.
+- 📈 **Sales predictions** — a chart estimating demand for the coming months.
+- 🙈 **Safe by design** — anything that removes data asks you to confirm first.
+
+---
+
+## 🎯 Who is it for?
+
+| Person | What WareWise does for them |
+| --- | --- |
+| 🏭 **Suppliers** | Show your products to the businesses that need them — price, stock, availability. |
+| 👩‍💼 **Employees** | Find what you need, request it, and see what your warehouse actually uses. |
+| 📋 **Warehouse managers** | Watch stock levels, review incoming and outgoing goods, and approve replenishment before anything is ordered. |
+| 🧠 **Everyone** | A shared marketplace, stock history, purchase workflows, demand forecasts and payment records. |
+
+### How a purchase flows
 
 1. A supplier adds a product to the marketplace. 🛒
 2. An employee or manager finds the product they need. 🔍
 3. A purchase request is created and reviewed by the right manager. ✅
-4. When stock arrives, the team records the delivery. 📦
-5. Every stock change — delivery, sale, return, transfer, adjustment — is kept. 🧾
-6. The forecasting service reads historical sales and estimates future demand. 🔮
-7. A manager reviews the recommendation and decides. 🫶
+4. When the goods arrive, the team records the delivery. 📦
+5. Every stock change — delivery, sale, return, transfer, correction — is kept. 🧾
+6. The forecasting helper reads past sales and estimates future demand. 🔮
+7. A manager reviews the suggestion and makes the final call. 🤍
 
 ---
+
+## ✅ What works today — and what is still a demo
+
+**Works end to end in the live demo:**
+
+- Signing in, creating an account and resetting a password
+- The product marketplace and product pages
+- Ordering and booking products
+- Profiles and profile pictures
+- The sales-prediction chart
+
+**Still honest-to-goodness demo grade:**
+
+- **Forecasts** come from a simple built-in calculation — an educated guess based on
+  recent patterns — not yet a model trained on years of real sales.
+- **Payments** are a mock-up: you can walk through the page, but no real money moves.
+- **Demo data** lives on free hosting: the database is kept for **30 days**, and the
+  site can briefly go offline if the free plan runs out of credits. Treat it as a
+  prototype, not a bank.
+- **Permissions are still being built**, so demo accounts see a similar view today.
+
+We would rather say this out loud than pretend. 🤍
+
+---
+
+## 💬 Questions people ask
+
+**Do I need to install anything?**  
+No. Any browser is enough.
+
+**Does it cost money?**  
+No — the demo is free to try.
+
+**Can I break something?**  
+Nothing that matters. It runs on demo data and can always be reset.
+
+**It loaded slowly — is it down?**  
+It was probably waking up. Free hosting puts the site to sleep after about 15 quiet
+minutes; the first page then takes roughly a minute, and everything is quick after that.
+
+**Is the project finished?**  
+It is a working prototype with more on the way — see *What works today* above.
+
+**I'm not technical — is this page for me?**  
+Yes, and you can stop right here if you like. The nerdy details (architecture, setup
+commands, API reference) are folded away at the bottom for the technical team.
+
+---
+
+## 🤝 Contributing
+
+Small, focused changes — one idea at a time. If you change how something behaves,
+update the matching document in `docs/` and add tests for the new behaviour.
+Guidelines for developers: [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## 🔐 Security
+
+Please don't report security problems as public comments — follow
+[SECURITY.md](SECURITY.md) instead. Never put real customer information, passwords
+or access keys into this repository.
+
+---
+
+<details>
+<summary>🧑‍💻 <b>For the technical team</b> — architecture, status, deployment, local setup, configuration and API reference</summary>
+
+WareWise is a monorepo: a React single-page client, a versioned Node/TypeScript API,
+a FastAPI forecasting service, a Solidity payment workspace, a Render Blueprint
+deployment file and a Makefile for the local workflow.
 
 ## 🗺️ Architecture
 
 ```text
-      browser  🌸
-         │  https
-         ▼
- ┌───────────────────────┐        ┌──────────────────────────────┐
- │ client/  (React + CDN)│        │ ml-service/  (FastAPI)       │
- │ Vite · MUI · Redux    │        │ /api/v1/forecast{,/batch}    │
- │ TanStack Query · wagmi│        │ deterministic baseline model │
- └──────────┬────────────┘        └──────────────▲───────────────┘
-            │  VITE_API_BASE_URL                 │ ML_SERVICE_URL
-            ▼                                    │
- ┌───────────────────────────────────────────────┴──────────────┐
- │ server/  (Node + TypeScript API)                             │
- │ helmet · CORS allowlist · request ids · rate limit · metrics │
- │ auth · inventory · orders · payments (modules in progress)   │
- └───────┬─────────────────────────────┬────────────────────────┘
-         │ postgres://                  │ redis://
-         ▼                              ▼
- ┌──────────────────────┐      ┌────────────────────────┐
- │ Render Postgres  🐘  │      │ Render Key Value  🍒  │
- │ system of record     │      │ cache · queues · limits│
- └──────────────────────┘      └────────────────────────┘
+   browser 🌸
+       │  secure connection (HTTPS)
+       ▼
+┌────────────────────┐         ┌────────────────────┐
+│ client/            │         │ ml-service/        │
+│ React + Vite SPA   │         │ FastAPI forecasting│
+│ MUI · Redux · wagmi│         │ baseline model     │
+└─────────┬──────────┘         └─────────┬──────────┘
+          │  VITE_API_BASE_URL           │ ML_SERVICE_URL
+          ▼                              │
+┌─────────────────────────────────────┐  │
+│ server/  Node + TypeScript API      │◄─┘
+│ auth · users · products · health    │
+│ helmet · CORS · rate limit · metrics│
+└───────┬─────────────────────┬───────┘
+        │ postgres://         │ redis://
+        ▼                     ▼
+┌─────────────────┐   ┌─────────────────┐
+│ Render Postgres │   │ Render Key Value│
+│ system of record│   │ cache · limits  │
+└─────────────────┘   └─────────────────┘
 
-         ⛓️  foundry/  ·  Payment.sol — contract workspace for payment settlement
+      ⛓ foundry/ · Payment.sol (settlement contract)
 ```
 
 The client talks to the versioned API over HTTPS. The API owns authentication,
@@ -130,25 +205,25 @@ Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ```text
 warewise/
-├── client/          🎀 React 18 + Vite SPA (MUI, Redux Toolkit, wagmi)
-├── server/          🌷 Express API: typed modules in src/, legacy prototype in index.js
-├── ml-service/      🔮 FastAPI forecasting service (+ Dockerfile)
-├── foundry/         ⛓️  Payment.sol workspace (Solidity + Foundry)
-├── docs/            📚 Product, API, data, security, ML and deployment specs
-├── render.yaml      🚀 Render Blueprint: whole stack in one sync
+├── client/             🎀 React 18 + Vite SPA (MUI, Redux Toolkit, wagmi)
+├── server/             🍡 Express API: typed modules in src/, legacy prototype in index.js
+├── ml-service/         🔮 FastAPI forecasting service (+ Dockerfile)
+├── foundry/            ⛓  Payment.sol workspace (Solidity + Foundry)
+├── docs/               📚 Product, API, data, security, ML and deployment specs
+├── render.yaml         🚀 Render Blueprint: whole stack in one sync
 ├── docker-compose.yml  🐳 Local Postgres 16 + Redis 7
-└── Makefile         🧰 install · lint · test · build · dev · infra-up
+└── Makefile            🧰 install · lint · test · build · dev · infra-up
 ```
 
-## 🧸 Project status
+## 🧱 Project status
 
 WareWise began as a hackathon prototype and is being rebuilt in stages for real-world
 use. Nothing here pretends to be finished: [docs/IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md)
 separates what runs from what is planned.
 
-There is no complete hosted production version yet, but a live instance of the current
-stack **is** running with published demo credentials — see [🌍 Live demo](#-live-demo) —
-and the Render Blueprint above is the fastest way to review the current stack end to end. 🌷
+A live instance of the current stack **is** running with the published demo
+credentials at the top of this page, and `render.yaml` is the fastest way to review
+the whole stack end to end. 🍡
 
 | State | Area |
 | --- | --- |
@@ -159,16 +234,14 @@ and the Render Blueprint above is the fastest way to review the current stack en
 | ✅ **Running** | Render Blueprint deployment definition, `GET /api/health`, `0.0.0.0:$PORT` binding, `VITE_API_BASE_URL` plumbing |
 | ✅ **Running** | Live Render deployment serving traffic: `warewise-client`, `warewise-api`, `warewise-ml` (Postgres + Key Value provisioned) |
 | 🚧 **In progress** | Sessions, RBAC · inventory, orders, payments modules |
-| 🌱 **Planned** | Object storage · email · blockchain reconciliation · React TypeScript migration · integration & end-to-end tests · trained forecasting models |
+| 📅 **Planned** | Object storage · email · blockchain reconciliation · React TypeScript migration · integration & end-to-end tests · trained forecasting models |
 
 ---
 
-## 🚀 Deploy to Render
+## 🚀 Deployment
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/sillyfellow21/WareWise-AI)
-
-One Blueprint ([`render.yaml`](render.yaml)) provisions the whole monorepo — client,
-API, forecasting service, Postgres and Key Value — and wires them together:
+One blueprint file — [`render.yaml`](render.yaml) — provisions the whole monorepo
+(client, API, forecasting service, Postgres and Key Value) and wires them together:
 
 | Resource | Kind | Root | Health check |
 | --- | --- | --- | --- |
@@ -178,51 +251,33 @@ API, forecasting service, Postgres and Key Value — and wires them together:
 | `warewise-db` | Render Postgres 16, internal-only | – | – |
 | `warewise-cache` | Render Key Value (Redis-compatible) | – | – |
 
-| 🔗 | Link |
-| --- | --- |
-| ⚡ Quick deploy | <https://render.com/deploy?repo=https://github.com/sillyfellow21/WareWise-AI> |
-| 🎛️ Render dashboard | <https://dashboard.render.com> → *New + > Blueprint* |
-| 📜 Blueprint file | [`render.yaml`](render.yaml) |
-| 📘 Blueprint reference | <https://render.com/docs/blueprint-spec> |
-| 🧾 Deploy notes (ports, env wiring, free-tier limits) | [docs/DEPLOYMENT_SPEC.md](docs/DEPLOYMENT_SPEC.md) |
+To deploy: open the Render dashboard → **New + → Blueprint** → pick this repository
+(or a specific branch) and sync. Notes on ports, environment wiring and free-tier
+limits live in [docs/DEPLOYMENT_SPEC.md](docs/DEPLOYMENT_SPEC.md).
 
-<details>
-<summary>🌸 Deploy the current branch before merging</summary>
-
-The button above deploys the repository's default branch (`main`). To stand the stack up
-from this branch first:
-
-```text
-https://render.com/deploy?repo=https://github.com/sillyfellow21/WareWise-AI/tree/agents/render-s-blueprint-feature-is-the-best-approach
-```
-
-</details>
-
-### Wiring, automatically
+**Wiring, automatically**
 
 - `DATABASE_URL` ← `fromDatabase` (internal connection string for the database's region)
 - `REDIS_URL` ← `fromService` on the Key Value instance (`connectionString`)
 - `ML_SERVICE_URL` ← `fromService` on the ML service (`host`); the API adds the scheme
-  (`https://` for public hosts, `http://` for undotted private addresses)
+  (secure HTTPS for public hosts, plain HTTP for undotted private addresses)
 - `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET` ← generated on the first sync, then preserved
-- Both services bind `0.0.0.0` and read the port Render injects (`PORT` for Node,
+- Both services bind `0.0.0.0` and read the port the platform injects (`PORT` for Node,
   `$PORT` for uvicorn), so health checks and zero-downtime deploys behave
 - Pushes to `main` redeploy automatically (`autoDeployTrigger: commit`)
 
-### Free-plan reality check 🤍
+**Free-plan reality check 🤍**
 
 - Free web services **spin down after 15 minutes idle** — the next request pays a cold
   start of about a minute.
 - Free web services can *send* but not *receive* private-network traffic, so the API
-  reaches the ML service over its public HTTPS URL. Upgrade both and switch
+  reaches the ML service over its public address. Upgrade both and switch
   `warewise-ml` to `type: pserv` to use the private address (noted inline in `render.yaml`).
 - Free Postgres **expires 30 days after creation** and has no backups or managed pooling.
 - Free Key Value is in-memory only and may restart without notice.
 - Free instances are perfect for a demo or a review — upgrade before real traffic. 💸
 
----
-
-## 🍡 Local development
+## 🍃 Local development
 
 **You need:** Node.js 22+, npm, Python 3.12+, Docker.
 
@@ -230,19 +285,19 @@ https://render.com/deploy?repo=https://github.com/sillyfellow21/WareWise-AI/tree
 # 1 · datastores (Postgres 16 + Redis 7)          → make infra-up
 docker compose up -d postgres redis
 
-# 2 · dependencies                                 → make install
+# 2 · dependencies                                → make install
 npm install --prefix server
 npm install --prefix client
 
-# 3 · the web app                                  → http://localhost:5173
+# 3 · the web app                                 → open localhost:5173
 npm run dev --prefix client
 
-# 4 · the typed API                                → http://localhost:6001
+# 4 · the typed API                               → port 6001
 npm run build:typed --prefix server
 npm run start:typed --prefix server
 #   (npm run dev --prefix server starts the legacy prototype instead; it needs MONGO_URL)
 
-# 5 · the forecasting service                      → http://localhost:8000
+# 5 · the forecasting service                     → port 8000
 python -m venv .venv
 .venv\Scripts\Activate.ps1              # Windows PowerShell
 source .venv/bin/activate               # macOS / Linux
@@ -253,7 +308,7 @@ python -m uvicorn app.main:app --app-dir ml-service --host 0.0.0.0 --port 8000
 Copy `.env.example`, `server/.env.example` and `client/.env.example` into local `.env`
 files before starting the API. Never commit real passwords, keys or `.env` files. 🔐
 
-## 🔧 Configuration
+## ⚙️ Configuration
 
 | Variable | Service | Notes |
 | --- | --- | --- |
@@ -265,7 +320,7 @@ files before starting the API. Never commit real passwords, keys or `.env` files
 | `JWT_ACCESS_SECRET` / `JWT_REFRESH_SECRET` | API | Required when `NODE_ENV=production`; generated by the Blueprint. |
 | `ML_SERVICE_URL` | API | Base URL of the forecasting service; the scheme is inferred when Render omits it. |
 | `CORS_ORIGINS` | API | Comma-separated browser origin allowlist. |
-| `VITE_API_BASE_URL` | Client | Build-time API origin (`client/src/config/api.js`), defaults to `http://localhost:6001`. |
+| `VITE_API_BASE_URL` | Client | Build-time API origin (`client/src/config/api.js`), defaults to `localhost:6001`. |
 | `PYTHON_VERSION` | ML | Fully qualified version required by the Render Python runtime. |
 
 ## 🩺 Endpoints
@@ -288,12 +343,11 @@ files before starting the API. Never commit real passwords, keys or `.env` files
 | `GET` | `/predictMonthly?month&year` | Monthly forecast series (proxies `warewise-ml`, falls back locally) |
 
 **Forecasting service** — `ml-service/` (deployed as `warewise-ml`, private to the API):
-`GET /health`, `GET /ready`,
-`POST /api/v1/forecast`, `POST /api/v1/forecast/batch`,
+`GET /health`, `GET /ready`, `POST /api/v1/forecast`, `POST /api/v1/forecast/batch`,
 `GET /api/v1/forecast/{productId}`. Contract: [docs/ML_SPEC.md](docs/ML_SPEC.md).
 
 **Legacy prototype** — `server/index.js` (Mongoose + MongoDB, requires `MONGO_URL`; not
-deployed — its former host is retired; its route shapes now live on the typed API above).
+deployed — its route shapes now live on the typed API above).
 
 ## 🧪 Quality gates
 
@@ -309,8 +363,6 @@ make infra-down   # docker compose down
 Every pull request should pass install, lint, typecheck, tests and build for the
 packages it touches — see [CONTRIBUTING.md](CONTRIBUTING.md). 💅
 
----
-
 ## 📚 Documentation
 
 | Doc | What's inside |
@@ -325,17 +377,7 @@ packages it touches — see [CONTRIBUTING.md](CONTRIBUTING.md). 💅
 | [Deployment](docs/DEPLOYMENT_SPEC.md) | Environments, Render Blueprint, delivery gates, observability |
 | [Implementation status](docs/IMPLEMENTATION_STATUS.md) | What runs, what is planned, and the decisions still needed |
 
-## 🤝 Contributing
-
-Focused pull requests, one domain change at a time. Read the related document in
-`docs/`, update it when behavior changes, and add tests for authorization, validation,
-state transitions and failure paths. Full guidelines: [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## 🔐 Security
-
-Please do not open a public issue for vulnerabilities — follow [SECURITY.md](SECURITY.md)
-instead. Never place customer information, production data, passwords, wallet keys or
-provider credentials in this repository.
+</details>
 
 ---
 
@@ -345,15 +387,8 @@ provider credentials in this repository.
 
 **WareWise** — count the boxes, keep the humans in charge.
 
-`make lint` ♡ `make test` ♡ `make build`
-
-![made with](https://img.shields.io/badge/made%20with-love%20%26%20pastels-FFB6C1?style=flat-square)
-![status](https://img.shields.io/badge/status-in%20progress-B5E8FF?style=flat-square)
+Try the demo: **https://warewise-client.onrender.com/**
 
 [⬆ back to the top](#-warewise-)
 
 </div>
-
-
-
-

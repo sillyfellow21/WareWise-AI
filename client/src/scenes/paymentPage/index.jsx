@@ -121,7 +121,7 @@ const PaymentPage = () => {
         <Navbar></Navbar>
         <Box
           sx={{
-            backgroundImage: "url('/mainbackground.jpg')",
+            backgroundImage: "url('/mainbackground.svg')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             minHeight: '100vh',

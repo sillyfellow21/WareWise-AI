@@ -1,0 +1,2 @@
+Upload target for the legacy prototype (server/index.js serves /assets from here).
+Kept in git because multer writes avatar uploads into this folder at runtime.

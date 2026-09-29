@@ -6,6 +6,12 @@
 
 **Pastel on the outside, dependable on the inside.**
 
+`vibes · pastel ✨`
+
+| 🧁 | 🌸 | 🍡 |
+| --- | --- | --- |
+| plan stock | approve orders | forecast demand |
+
 </div>
 
 ---
@@ -77,6 +83,29 @@ Two rules the product never breaks:
 
 ---
 
+## 🍰 The cute part
+
+Warehouse software usually looks like a spreadsheet that gave up. Ours doesn't. 🧁
+
+- **Pastel everything** — a calm aqua accent on soft off-whites (`client/src/theme.js`),
+  with blush pinks and lilac in the artwork. Nothing shouts.
+- **A rounded, friendly font** — Rubik throughout, so nothing feels like a form letter.
+- **Rounded cards and soft edges** — buttons, boxes and pictures are gently rounded,
+  the way a paper cut-out is.
+- **Light 🌞 and dark 🌙 modes** — flip between them from the navigation bar when the
+  light is not your friend.
+- **A hand-drawn backdrop** — the payment screen sits on a soft gradient sprinkled with
+  little blossoms (`client/public/mainbackground.svg`), and the browser tab gets a
+  pastel flower (`client/public/favicon.svg`).
+- **A face for every user** — upload a picture, or let the app draw your initials for
+  you, so nobody is stuck behind a grey silhouette.
+- **Emoji wayfinding** — 🏠 home, 🛍️ marketplace, 📦 products, 📈 predictions.
+
+Soft on the surface, careful underneath: behind the pastel paint sits a typed, tested,
+security-conscious API. 🤍
+
+---
+
 ## 🎯 Who is it for?
 
 | Person | What WareWise does for them |
@@ -95,6 +124,34 @@ Two rules the product never breaks:
 5. Every stock change — delivery, sale, return, transfer, correction — is kept. 🧾
 6. The forecasting helper reads past sales and estimates future demand. 🔮
 7. A manager reviews the suggestion and makes the final call. 🤍
+
+---
+
+## 🧰 What it's built on — and why
+
+You never need to read this to *use* WareWise, but here is the honest list. Every
+choice below was made on purpose.
+
+| Part | What we chose | Why we chose it |
+| --- | --- | --- |
+| Web app | **React 18 + Vite 5** | The largest community in front-end work, instant reload while building, and a small static build any CDN can host for free. |
+| Look and feel | **Material UI + Emotion** | Accessible, battle-tested building blocks; theming lets us paint it pastel without fighting the library. |
+| App state | **Redux Toolkit** (+ redux-persist) | One predictable store for "who is signed in", and it remembers you after a page refresh. |
+| Server data | **TanStack Query** | Keeps lists in step with the API and retries quietly, so screens rarely show a spinner. |
+| Forms | **Formik + Yup** | The well-trodden pair for sign-up and product forms — the validation rules stay readable. |
+| Charts | **Nivo** | A lovely demand line chart in a handful of lines, and it scales to any screen. |
+| Wallets | **wagmi + viem + RainbowKit** | The payment experiment needs a wallet; these make connecting friendly and absorb the messy chain details. |
+| API | **Node.js 22 + Express + TypeScript** | The same language as the browser, so types travel end to end and slips get caught before they ship. |
+| Safety rails | **helmet, CORS allowlist, rate limits, request ids** | Boring, well-known defaults that stop the obvious attacks and make every log searchable. |
+| Database | **PostgreSQL 16 + Prisma** | Stock and orders are naturally relational; Prisma gives type-safe queries and real migrations. |
+| Cache & limits | **Redis-compatible Key Value** | Hot counters and repeated lookups answered from memory instead of a database round trip. |
+| Forecasting | **Python 3.12 + FastAPI** | Python is where the data tooling lives, and FastAPI documents and validates the contract for us. |
+| Payments (experiment) | **Solidity + Foundry** | On-chain receipts behind a backend adapter; Foundry compiles and tests in seconds. |
+| Hosting | **Render Blueprint** (`render.yaml`) | One file brings up the app, API, forecasting service, database and cache together — with a free tier to try. |
+| Local setup | **Makefile + Docker Compose** | `make infra-up`, then `make dev` — the same few words work on every machine. |
+
+Everything deeper — architecture, deployment, configuration, endpoints — is folded into
+the *For the technical team* section at the bottom of this page.
 
 ---
 
@@ -214,6 +271,10 @@ warewise/
 ├── docker-compose.yml  🐳 Local Postgres 16 + Redis 7
 └── Makefile            🧰 install · lint · test · build · dev · infra-up
 ```
+
+Solidity libraries are not vendored into the repository: `foundry/foundry.toml`
+remaps `@chainlink/contracts` (and friends) to `foundry/lib/`, so run `forge install`
+once before `forge build`.
 
 ## 🧱 Project status
 
@@ -362,6 +423,16 @@ make infra-down   # docker compose down
 
 Every pull request should pass install, lint, typecheck, tests and build for the
 packages it touches — see [CONTRIBUTING.md](CONTRIBUTING.md). 💅
+
+For a deeper end-to-end run without Docker, `server/scripts/local-smoke.mjs` boots a
+throwaway Postgres, applies the Prisma schema, seeds the demo accounts and walks every
+route the deployed client uses (login, marketplace, product detail, booking, avatar):
+
+```sh
+cd server
+npm install --no-save embedded-postgres   # dev-only binaries, never committed
+node scripts/local-smoke.mjs
+```
 
 ## 📚 Documentation
 

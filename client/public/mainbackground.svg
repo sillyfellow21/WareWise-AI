@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Pastel background">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFE3EF" />
+      <stop offset="45%" stop-color="#F3E6FF" />
+      <stop offset="100%" stop-color="#DCF2F6" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)" />
+  <g fill="#FFFFFF" opacity="0.45">
+    <circle cx="150" cy="140" r="90" />
+    <circle cx="1050" cy="180" r="130" />
+    <circle cx="640" cy="720" r="160" />
+    <circle cx="980" cy="640" r="70" />
+  </g>
+  <g fill="#FFFFFF" opacity="0.55">
+    <g transform="translate(300 560) scale(1.4)">
+      <circle cx="0" cy="-12" r="8" />
+      <circle cx="12" cy="0" r="8" />
+      <circle cx="0" cy="12" r="8" />
+      <circle cx="-12" cy="0" r="8" />
+      <circle cx="0" cy="0" r="5" fill="#FFC9DC" />
+    </g>
+    <g transform="translate(880 420) scale(1.1)">
+      <circle cx="0" cy="-12" r="8" />
+      <circle cx="12" cy="0" r="8" />
+      <circle cx="0" cy="12" r="8" />
+      <circle cx="-12" cy="0" r="8" />
+      <circle cx="0" cy="0" r="5" fill="#FFC9DC" />
+    </g>
+    <g transform="translate(520 300) scale(0.8)">
+      <circle cx="0" cy="-12" r="8" />
+      <circle cx="12" cy="0" r="8" />
+      <circle cx="0" cy="12" r="8" />
+      <circle cx="-12" cy="0" r="8" />
+      <circle cx="0" cy="0" r="5" fill="#FFC9DC" />
+    </g>
+  </g>
+</svg>

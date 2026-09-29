@@ -5,7 +5,8 @@
 #   server/      -> warewise-api     Node.js web service (typed Express API)
 #   ml-service/  -> warewise-ml      Python web service (FastAPI forecasting)
 #   -            -> warewise-db      Render Postgres (system of record)
-#   -            -> warewise-cache   Render Key Value (Redis-compatible cache/queues)
+#   -            -> warewise-cache   Render Key Value (Redis-compatible; provisioned,
+#                                 not yet connected to by the API)
 #
 # Resource name table (keep every name/fromService/fromDatabase reference in sync):
 #   static site : warewise-client

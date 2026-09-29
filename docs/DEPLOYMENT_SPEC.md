@@ -43,12 +43,18 @@ Render cancels a deploy that does not pass health checks within 15 minutes and r
 ## Runtime
 - React static assets served by a CDN or web server.
 - API and ML containers run as non-root users with health checks.
-- PostgreSQL uses managed backups and migrations run as a controlled release step.
+- Production PostgreSQL is expected to use managed backups; the free plan used here has
+  none. There is no migration step: the Blueprint applies the schema with
+  `npx prisma db push` at build time.
 - Redis is private-network only.
 - Object storage is private by default; clients receive short-lived signed URLs.
 
 ## Delivery gates
-Pull requests run formatting, linting, type checks, unit tests, integration tests, contract tests, and container builds. Deployment requires a successful main-branch build, migration review, and rollback plan.
+**No CI is configured.** There is no repository workflow, so nothing runs on pull
+requests. Quality is enforced by running the local commands in
+[../CONTRIBUTING.md](../CONTRIBUTING.md) (`make install lint test build`) and by the
+Render build, which runs `npm ci`, `prisma db push` and `tsc` for the API. Continuous
+integration, contract tests, container builds and a review gate are still to come.
 
 ## Observability
 Structured JSON logs include request ID, route, status, and duration. Alerts cover error rate, latency, failed jobs, database connectivity, queue depth, forecast failures, and payment reconciliation lag.

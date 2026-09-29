@@ -1,18 +1,21 @@
 # WareWise Architecture
 
 ## Target topology
-The React client calls the versioned Node/TypeScript API over HTTPS. The API owns authentication, authorization, business workflows, and persistence. PostgreSQL is the system of record; Redis provides cache, rate-limit state, and job queues. The FastAPI ML service owns forecasting computation. Blockchain access is isolated behind a backend adapter. Object storage holds user and product media.
+The React client calls the Node/TypeScript API over HTTPS. The API owns authentication, authorization, business workflows, and persistence. PostgreSQL is the system of record. The FastAPI ML service owns forecasting computation. Blockchain access is isolated in the client and the contract in `foundry/`; there is no backend adapter for it. Object storage holds user and product media. Redis is provisioned by the Blueprint but not connected to. The API is not versioned today, apart from a `/api/v1/health` alias.
 
 ## Boundaries
 - `client`: presentation, route state, API client, and user interactions.
 - `server`: business rules, authorization, persistence, jobs, and integrations.
 - `ml-service`: validated forecasting inputs and model execution only.
-- `foundry`: contracts, deployment scripts, and contract tests.
+- `foundry`: one Solidity contract, `src/Payment.sol`. There are no deployment
+  scripts and no contract tests yet.
 - `docs`: versioned contracts and operational decisions.
 
 ## Request path
-`client -> API middleware -> module route -> schema validation -> service -> repository -> PostgreSQL`.
-External calls are performed by services, never directly by controllers. Controllers translate HTTP to application commands and responses.
+Today: `client -> API middleware -> module route -> controller -> Prisma -> PostgreSQL`.
+There is no schema-validation, service or repository layer yet — controllers coerce
+the body by hand and call Prisma directly. The service/repository split above is the
+target shape.
 
 ## Migration strategy
 1. Add typed modules beside the current Express application.

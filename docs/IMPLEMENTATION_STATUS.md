@@ -30,7 +30,10 @@ This file separates executable behavior from the target specifications.
 	avatar storage, login with JWT, forgot-password (security question)
 	flow, profile read/patch, paginated/sorted/filtered product feeds,
 	owner and booked product lists, product detail, create, booking toggle,
-	ownership-checked delete, and `/assets/*` avatar serving.
+	delete, and `/assets/*` avatar serving. Ownership is **not** actually
+	enforced: the acting user is read from the request body or URL rather than
+	the token, so any signed-in user can act as another user
+	(see `docs/SECURITY_SPEC.md`).
 - `GET /predictMonthly` compatibility endpoint: batches a year of forecasts
 	against the ML service (cached, with a deterministic local fallback), so
 	the deployed predictions page renders without the retired hackathon host.

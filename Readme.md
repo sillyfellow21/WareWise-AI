@@ -59,15 +59,16 @@ Every business that buys or sells things keeps asking the same three questions:
 
 > *"What do we have, what do we need, and what should we buy next?"*
 
-WareWise answers them in **one shared place**. Suppliers, employees and warehouse
-managers all work from the same screen instead of juggling spreadsheets, chats and
-paper notes — and a forecasting helper studies past sales to suggest what will
-probably be needed next month.
+WareWise is building toward one shared place for those three questions. Today it
+gives **suppliers and employees** a common screen — list products, browse the
+marketplace, book what you need and look at a demand forecast — instead of
+spreadsheets, chats and paper notes.
 
-Two rules the product never breaks:
+Two ideas the product is built around:
 
-- **People decide, not software.** A forecast is a suggestion; a human still approves it.
-- **Everything is recorded.** Deliveries, sales, returns and corrections leave a trace.
+- **People decide, not software.** A forecast is a suggestion, never an automatic order.
+- **Keep the receipt.** Products, bookings and profile changes are written to the
+  database, so the marketplace has a history instead of a guess.
 
 ---
 
@@ -75,7 +76,7 @@ Two rules the product never breaks:
 
 - 🏠 **Home** — a quick overview with shortcuts to everything else.
 - 🛍️ **Marketplace** — every product suppliers have listed, with prices and stock.
-- 📄 **Product details** — a closer look at one item, and the button to order it.
+- 📄 **Product details** — a closer look at one item, and a button to book it.
 - 📦 **My products** *(suppliers)* — add your own products and see who booked them.
 - 👤 **Profile** — update your details and profile picture.
 - 📈 **Sales predictions** — a chart estimating demand for the coming months.
@@ -101,7 +102,6 @@ Warehouse software usually looks like a spreadsheet that gave up. Ours doesn't. 
   pastel flower (`client/public/favicon.svg`).
 - **A face for every user** — upload a picture, or let the app draw your initials for
   you, so nobody is stuck behind a grey silhouette.
-- **Emoji wayfinding** — 🏠 home, 🛍️ marketplace, 📦 products, 📈 predictions.
 
 Soft on the surface, careful underneath: behind the pastel paint sits a typed, tested,
 security-conscious API. 🤍
@@ -110,22 +110,25 @@ security-conscious API. 🤍
 
 ## 🎯 Who is it for?
 
-| Person | What WareWise does for them |
+| Person | What WareWise does for them today |
 | --- | --- |
-| 🏭 **Suppliers** | Show your products to the businesses that need them — price, stock, availability. |
-| 👩‍💼 **Employees** | Find what you need, request it, and see what your warehouse actually uses. |
-| 📋 **Warehouse managers** | Watch stock levels, review incoming and outgoing goods, and approve replenishment before anything is ordered. |
-| 🧠 **Everyone** | A shared marketplace, stock history, purchase workflows, demand forecasts and payment records. |
+| 🏭 **Suppliers** | List products with a price, quantity and category, and see who has booked them. |
+| 👩‍💼 **Employees** | Browse the marketplace, book the items they need, and keep a profile with a picture. |
+| 🧠 **Everyone** | One shared marketplace, a demand forecast for the year ahead, and a demo wallet screen. |
 
-### How a purchase flows
+Manager approvals, purchase orders and stock history are the next milestone. They are
+designed in [docs/PRODUCT_SPEC.md](docs/PRODUCT_SPEC.md) but **not built yet**.
+
+### How a booking flows
 
 1. A supplier adds a product to the marketplace. 🛒
-2. An employee or manager finds the product they need. 🔍
-3. A purchase request is created and reviewed by the right manager. ✅
-4. When the goods arrive, the team records the delivery. 📦
-5. Every stock change — delivery, sale, return, transfer, correction — is kept. 🧾
-6. The forecasting helper reads past sales and estimates future demand. 🔮
-7. A manager reviews the suggestion and makes the final call. 🤍
+2. An employee finds it, opens the details page and books it. 🔍
+3. The supplier sees who booked it. 🧾
+4. The predictions screen shows what demand is likely to look like. 🔮
+
+That is the whole loop **today**. Purchase requests, manager approval, deliveries
+and stock movements are designed but not built — see
+[docs/IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md).
 
 ---
 
@@ -139,14 +142,14 @@ choice below was made on purpose.
 | Web app | **React 18 + Vite 5** | The largest community in front-end work, instant reload while building, and a small static build any CDN can host for free. |
 | Look and feel | **Material UI + Emotion** | Accessible, battle-tested building blocks; theming lets us paint it pastel without fighting the library. |
 | App state | **Redux Toolkit** (+ redux-persist) | One predictable store for "who is signed in", and it remembers you after a page refresh. |
-| Server data | **TanStack Query** | Keeps lists in step with the API and retries quietly, so screens rarely show a spinner. |
+| Server data | **`fetch` inside components** | No caching layer to reason about for a demo. TanStack Query is installed and its provider is mounted, but no query hook is used yet. |
 | Forms | **Formik + Yup** | The well-trodden pair for sign-up and product forms — the validation rules stay readable. |
 | Charts | **Nivo** | A lovely demand line chart in a handful of lines, and it scales to any screen. |
 | Wallets | **wagmi + viem + RainbowKit** | The payment experiment needs a wallet; these make connecting friendly and absorb the messy chain details. |
 | API | **Node.js 22 + Express + TypeScript** | The same language as the browser, so types travel end to end and slips get caught before they ship. |
 | Safety rails | **helmet, CORS allowlist, rate limits, request ids** | Boring, well-known defaults that stop the obvious attacks and make every log searchable. |
 | Database | **PostgreSQL 16 + Prisma** | Stock and orders are naturally relational; Prisma gives type-safe queries and real migrations. |
-| Cache & limits | **Redis-compatible Key Value** | Hot counters and repeated lookups answered from memory instead of a database round trip. |
+| Cache & limits | **Redis-compatible Key Value** *(provisioned, unused)* | Render creates it and `/ready` reports it, but no code connects to it yet — caching and shared rate limiting are still to come. |
 | Forecasting | **Python 3.12 + FastAPI** | Python is where the data tooling lives, and FastAPI documents and validates the contract for us. |
 | Payments (experiment) | **Solidity + Foundry** | A real contract plus a Sepolia testnet wallet screen, kept deliberately separate from the order flow until settlement is designed. |
 | Hosting | **Render Blueprint** (`render.yaml`) | One file brings up the app, API, forecasting service, database and cache together — with a free tier to try. |
@@ -231,7 +234,7 @@ or access keys into this repository.
 <details>
 <summary>🧑‍💻 <b>For the technical team</b> — architecture, status, deployment, local setup, configuration and API reference</summary>
 
-WareWise is a monorepo: a React single-page client, a versioned Node/TypeScript API,
+WareWise is a monorepo: a React single-page client, a Node/TypeScript API,
 a FastAPI forecasting service, a Solidity payment workspace, a Render Blueprint
 deployment file and a Makefile for the local workflow.
 
@@ -257,16 +260,17 @@ deployment file and a Makefile for the local workflow.
         ▼                     ▼
 ┌─────────────────┐   ┌─────────────────┐
 │ Render Postgres │   │ Render Key Value│
-│ system of record│   │ cache · limits  │
+│ system of record│   │ not wired yet  │
 └─────────────────┘   └─────────────────┘
 
       ⛓ foundry/ · Payment.sol (settlement contract)
 ```
 
-The client talks to the versioned API over HTTPS. The API owns authentication,
-authorization, business workflows and persistence. Postgres is the system of record;
-Redis-compatible Key Value handles cache, rate-limit state and jobs. Forecasting is
-isolated in the ML service, and blockchain access sits behind a backend adapter.
+The client talks to the API over HTTPS. The API owns authentication, the business
+rules and persistence. Postgres is the system of record, and forecasting is isolated
+in the ML service. Key Value is provisioned but nothing connects to it yet, and
+blockchain lives in the client and the contract in `foundry/` — there is no backend
+adapter for it.
 Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## 📁 Repository layout

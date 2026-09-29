@@ -14,6 +14,7 @@ const HomePage = () => {
     <Box>
       <Navbar />
       <Box
+        className="ww-stagger"
         width="100%"
         padding="2rem 6%"
         display={isNonMobileScreens ? "flex" : "block"}

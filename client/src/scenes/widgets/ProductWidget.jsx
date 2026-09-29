@@ -226,7 +226,7 @@ const ProductWidget = ({
           <Box
             sx={{
               borderRadius: '2rem',
-              bgcolor: '#834bff',
+              bgcolor: '#8c44d9',
               padding: '0.5rem 1rem',
               display: 'inline-flex',
               alignItems: 'center',
@@ -263,7 +263,7 @@ const ProductWidget = ({
               justifyContent: 'center',
               width: '100%',
               size: 'small',
-              backgroundColor: '#834bff', // Change background color here
+              backgroundColor: '#8c44d9', // Change background color here
             }}
             onClick={() => navigate(`/products/${productId}/product`)}
           >

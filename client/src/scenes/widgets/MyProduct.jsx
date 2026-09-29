@@ -130,7 +130,7 @@ const MyProductWidget = ({ picturePath }) => {
             Product Form
           </Typography>
         ) : (
-          <Typography fontSize={'3rem'} color={'#834bff'}>
+          <Typography fontSize={'3rem'} color={'#8c44d9'}>
             Product Form
           </Typography>
         )}
@@ -139,7 +139,7 @@ const MyProductWidget = ({ picturePath }) => {
       <Box display="flex" alignItems="center" marginBottom="1rem" marginTop={'2rem'}>
         <Box>
           {' '}
-          <Label color={Role == 'employee' ? 'primary' : '#834bff'} fontSize="large" />
+          <Label color={Role == 'employee' ? 'primary' : '#8c44d9'} fontSize="large" />
         </Box>
         <TextField
           multiline
@@ -154,7 +154,7 @@ const MyProductWidget = ({ picturePath }) => {
 
       <Box display="flex" alignItems="center" marginBottom="1rem">
         <Box>
-          <Description color={Role == 'supplier' ? '#834bff' : 'primary'} fontSize="large" />
+          <Description color={Role == 'supplier' ? '#8c44d9' : 'primary'} fontSize="large" />
         </Box>
         <TextField
           multiline
@@ -170,7 +170,7 @@ const MyProductWidget = ({ picturePath }) => {
         <Box>
           {' '}
           <ProductionQuantityLimits
-            color={Role == 'supplier' ? '#834bff' : 'primary'}
+            color={Role == 'supplier' ? '#8c44d9' : 'primary'}
             fontSize="large"
           />
         </Box>
@@ -188,7 +188,7 @@ const MyProductWidget = ({ picturePath }) => {
       <Box display="flex" alignItems="center" marginBottom="1rem">
         <Box>
           {' '}
-          <MonetizationOn color={Role == 'supplier' ? '#834bff' : 'primary'} fontSize="large" />
+          <MonetizationOn color={Role == 'supplier' ? '#8c44d9' : 'primary'} fontSize="large" />
         </Box>
         <TextField
           multiline
@@ -205,7 +205,7 @@ const MyProductWidget = ({ picturePath }) => {
         <Box display="flex" alignItems="center" marginBottom="1rem">
           <Box>
             {' '}
-            <MonitorWeight color={Role == 'supplier' ? '#834bff' : 'primary'} fontSize="large" />
+            <MonitorWeight color={Role == 'supplier' ? '#8c44d9' : 'primary'} fontSize="large" />
           </Box>
           <TextField
             fullWidth
@@ -223,7 +223,7 @@ const MyProductWidget = ({ picturePath }) => {
         <Box display="flex" alignItems="center" marginBottom="1rem">
           <Box>
             {' '}
-            <LineWeight color={Role == 'supplier' ? '#834bff' : 'primary'} fontSize="large" />
+            <LineWeight color={Role == 'supplier' ? '#8c44d9' : 'primary'} fontSize="large" />
           </Box>
           <TextField
             fullWidth
@@ -241,7 +241,7 @@ const MyProductWidget = ({ picturePath }) => {
         <Box display="flex" alignItems="center" marginBottom="1rem">
           <Box>
             {' '}
-            <Scale color={Role == 'supplier' ? '#834bff' : 'primary'} fontSize="large" />
+            <Scale color={Role == 'supplier' ? '#8c44d9' : 'primary'} fontSize="large" />
           </Box>
           <TextField
             fullWidth
@@ -257,7 +257,7 @@ const MyProductWidget = ({ picturePath }) => {
 
       <Box display="flex" alignItems="center" marginBottom="1rem">
         <Box>
-          <CategoryOutlined color={Role == 'supplier' ? '#834bff' : 'primary'} fontSize="large" />
+          <CategoryOutlined color={Role == 'supplier' ? '#8c44d9' : 'primary'} fontSize="large" />
         </Box>
         <Select
           value={category}

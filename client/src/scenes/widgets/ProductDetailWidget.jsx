@@ -84,7 +84,7 @@ const ProductDetailWidget = ({
         >
           <Typography
             fontSize={isNonMobileScreens ? '3rem' : '2rem'}
-            color={role === 'employee' ? 'primary' : '#834bff'}
+            color={role === 'employee' ? 'primary' : '#8c44d9'}
             fontWeight="bold"
           >
             Product Details
@@ -96,7 +96,7 @@ const ProductDetailWidget = ({
             style={{
               borderRadius: '2rem',
               padding: '1rem',
-              backgroundColor: '#2a2a2a',
+              backgroundColor: '#21252b',
               marginBottom: '1rem',
             }}
             display={'flex'}
@@ -120,7 +120,7 @@ const ProductDetailWidget = ({
             style={{
               borderRadius: '2rem',
               padding: '1rem',
-              backgroundColor: '#2a2a2a',
+              backgroundColor: '#21252b',
               marginBottom: '1rem',
             }}
             display={'flex'}
@@ -144,7 +144,7 @@ const ProductDetailWidget = ({
             style={{
               borderRadius: '2rem',
               padding: '1rem',
-              backgroundColor: '#2a2a2a',
+              backgroundColor: '#21252b',
               marginBottom: '1rem',
             }}
             display={'flex'}
@@ -168,7 +168,7 @@ const ProductDetailWidget = ({
             style={{
               borderRadius: '2rem',
               padding: '1rem',
-              backgroundColor: '#2a2a2a',
+              backgroundColor: '#21252b',
               marginBottom: '1rem',
             }}
             display={'flex'}
@@ -194,7 +194,7 @@ const ProductDetailWidget = ({
                 style={{
                   borderRadius: '2rem',
                   padding: '1rem',
-                  backgroundColor: '#2a2a2a',
+                  backgroundColor: '#21252b',
                   marginBottom: '1rem',
                 }}
                 display={'flex'}
@@ -218,7 +218,7 @@ const ProductDetailWidget = ({
                 style={{
                   borderRadius: '2rem',
                   padding: '1rem',
-                  backgroundColor: '#2a2a2a',
+                  backgroundColor: '#21252b',
                   marginBottom: '1rem',
                 }}
                 display={'flex'}
@@ -242,7 +242,7 @@ const ProductDetailWidget = ({
                 style={{
                   borderRadius: '2rem',
                   padding: '1rem',
-                  backgroundColor: '#2a2a2a',
+                  backgroundColor: '#21252b',
                   marginBottom: '1rem',
                 }}
                 display={'flex'}
@@ -268,7 +268,7 @@ const ProductDetailWidget = ({
             style={{
               borderRadius: '2rem',
               padding: '1rem',
-              backgroundColor: '#2a2a2a',
+              backgroundColor: '#21252b',
               marginBottom: '1rem',
             }}
             display={'flex'}
@@ -323,7 +323,7 @@ const ProductDetailWidget = ({
             style={{
               borderRadius: '2rem',
               padding: '1rem',
-              backgroundColor: '#2a2a2a',
+              backgroundColor: '#21252b',
               marginTop: '1.5rem',
             }}
           >
@@ -349,7 +349,7 @@ const ProductDetailWidget = ({
             <Typography
               mt={'1rem'}
               fontSize={isNonMobileScreens ? '2rem' : '1.5rem'}
-              color={'#834bff'}
+              color={'#8c44d9'}
             >
               {' '}
               Ordered this Product :{' '}

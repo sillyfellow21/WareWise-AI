@@ -183,13 +183,13 @@ const ProductsWidget = ({ userId, isProfile = false, isBookedProducts = false })
                   </>
                 ) : (
                   <>
-                    <Typography fontSize={isNonMobile ? '2rem' : '1rem'} color={'#834bff'}>
+                    <Typography fontSize={isNonMobile ? '2rem' : '1rem'} color={'#8c44d9'}>
                       {' '}
                       Welcome !{' '}
                     </Typography>
                     <Typography
                       fontSize={isNonMobile ? '3rem' : '2rem'}
-                      color={'#834bff'}
+                      color={'#8c44d9'}
                       fontWeight={'bold'}
                     >
                       {firstName}{' '}
@@ -237,12 +237,12 @@ const ProductsWidget = ({ userId, isProfile = false, isBookedProducts = false })
                   sx={{
                     fontSize: '1.25rem', // Change font size here
                     padding: '12px 24px',
-                    color: '#834bff',
-                    borderColor: '#834bff',
+                    color: '#8c44d9',
+                    borderColor: '#8c44d9',
                     '&:hover': {
                       color: '#fff', // Change text color on hover
-                      backgroundColor: '#834bff', // Change background color on hover
-                      borderColor: '#834bff', // Change border color on hover
+                      backgroundColor: '#8c44d9', // Change background color on hover
+                      borderColor: '#8c44d9', // Change border color on hover
                     },
                   }}
                   onClick={clearFilters}
@@ -255,7 +255,7 @@ const ProductsWidget = ({ userId, isProfile = false, isBookedProducts = false })
               <Typography
                 mt={'1rem'}
                 fontSize={isNonMobile ? '3rem' : '1rem'}
-                color={Role === 'supplier' ? '#834bff' : 'primary'}
+                color={Role === 'supplier' ? '#8c44d9' : 'primary'}
               >
                 {Role === 'supplier' ? 'Your Products' : 'Products in Inventory'}
               </Typography>

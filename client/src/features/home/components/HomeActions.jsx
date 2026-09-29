@@ -3,14 +3,14 @@ import { Box, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const supplierButtonSx = {
-  color: '#834bff',
-  borderColor: '#834bff',
+  color: '#8c44d9',
+  borderColor: '#8c44d9',
   fontSize: '1.25rem',
   padding: '12px 24px',
   '&:hover': {
     color: '#fff',
-    backgroundColor: '#834bff',
-    borderColor: '#834bff',
+    backgroundColor: '#8c44d9',
+    borderColor: '#8c44d9',
   },
 };
 

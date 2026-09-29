@@ -87,7 +87,7 @@ Two rules the product never breaks:
 
 Warehouse software usually looks like a spreadsheet that gave up. Ours doesn't. 🧁
 
-- **Pastel everything** — a calm aqua accent on soft off-whites (`client/src/theme.js`),
+- **Pastel everything** — a calm blue accent on soft off-whites (`client/src/theme.js`),
   with blush pinks and lilac in the artwork. Nothing shouts.
 - **A rounded, friendly font** — Rubik throughout, so nothing feels like a form letter.
 - **Rounded cards and soft edges** — buttons, boxes and pictures are gently rounded,

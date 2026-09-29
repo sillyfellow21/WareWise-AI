@@ -1,4 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap");
+
+:root {
+  --ww-blue: #2e5bdc;
+  --ww-blue-soft: rgba(46, 91, 220, 0.08);
+  --ww-purple: #8c44d9;
+  --ww-ink: #21252b;
+  --ww-muted: #9da5b4;
+  --ww-line: #e6eaf2;
+  --ww-canvas: #f5f7fc;
+  --ww-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ww-dur: 450ms;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 html,
 body,
@@ -7,4 +23,132 @@ body,
   height: 100%;
   width: 100%;
   font-family: "Rubik", sans-serif;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--ww-blue-soft);
+  color: var(--ww-ink);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--ww-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* thin, quiet scrollbars in the spirit of the header */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cfd7e8 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #cfd7e8;
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #b3bed6;
+  background-clip: content-box;
+}
+
+/* ── page transitions ────────────────────────────────────────────────
+   The soft fade-and-rise between screens. Duration and easing match the
+   site this look is borrowed from: 450ms, easeOutQuad.                  */
+
+@keyframes ww-page-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.ww-page {
+  animation: ww-page-in var(--ww-dur) var(--ww-ease) both;
+}
+
+@keyframes ww-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* children arrive one after another, like a deck of cards being dealt */
+.ww-stagger > * {
+  animation: ww-fade-up 500ms var(--ww-ease) both;
+}
+
+.ww-stagger > *:nth-child(1) { animation-delay: 40ms; }
+.ww-stagger > *:nth-child(2) { animation-delay: 100ms; }
+.ww-stagger > *:nth-child(3) { animation-delay: 160ms; }
+.ww-stagger > *:nth-child(4) { animation-delay: 220ms; }
+.ww-stagger > *:nth-child(5) { animation-delay: 280ms; }
+.ww-stagger > *:nth-child(6) { animation-delay: 340ms; }
+.ww-stagger > *:nth-child(n + 7) { animation-delay: 400ms; }
+
+/* a soft pulse for the little live dot in the header */
+@keyframes ww-pulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.75);
+  }
+}
+
+.ww-live-dot {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #04bf0c;
+}
+
+.ww-live-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: inherit;
+  animation: ww-pulse 2s var(--ww-ease) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .ww-page,
+  .ww-stagger > *,
+  .ww-live-dot::after {
+    animation: none;
+  }
 }

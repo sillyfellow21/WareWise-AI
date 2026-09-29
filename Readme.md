@@ -79,6 +79,8 @@ Two rules the product never breaks:
 - 📦 **My products** *(suppliers)* — add your own products and see who booked them.
 - 👤 **Profile** — update your details and profile picture.
 - 📈 **Sales predictions** — a chart estimating demand for the coming months.
+- ⛓️ **Payments** — a testnet wallet screen: connect a wallet and try the
+  deposit / transfer / withdraw contract with **test ETH on Sepolia**.
 - 🙈 **Safe by design** — anything that removes data asks you to confirm first.
 
 ---
@@ -146,7 +148,7 @@ choice below was made on purpose.
 | Database | **PostgreSQL 16 + Prisma** | Stock and orders are naturally relational; Prisma gives type-safe queries and real migrations. |
 | Cache & limits | **Redis-compatible Key Value** | Hot counters and repeated lookups answered from memory instead of a database round trip. |
 | Forecasting | **Python 3.12 + FastAPI** | Python is where the data tooling lives, and FastAPI documents and validates the contract for us. |
-| Payments (experiment) | **Solidity + Foundry** | On-chain receipts behind a backend adapter; Foundry compiles and tests in seconds. |
+| Payments (experiment) | **Solidity + Foundry** | A real contract plus a Sepolia testnet wallet screen, kept deliberately separate from the order flow until settlement is designed. |
 | Hosting | **Render Blueprint** (`render.yaml`) | One file brings up the app, API, forecasting service, database and cache together — with a free tier to try. |
 | Local setup | **Makefile + Docker Compose** | `make infra-up`, then `make dev` — the same few words work on every machine. |
 
@@ -170,6 +172,15 @@ the *For the technical team* section at the bottom of this page.
 - **Forecasts** come from a simple built-in calculation — an educated guess based on
   recent patterns — not yet a model trained on years of real sales.
 - **Payments** are a mock-up: you can walk through the page, but no real money moves.
+- **The blockchain side is real, but a separate experiment.** A Solidity contract
+  ([`foundry/src/Payment.sol`](foundry/src/Payment.sol)) implements registration,
+  deposits, transfers and withdrawals with a Chainlink USD/ETH price feed, and the
+  Payments page can connect a testnet wallet to it and move **test ETH on Sepolia**.
+  It is deliberately not wired into the order flow: the API never records or
+  verifies a transaction, the contract address is hard-coded in
+  `client/src/constants.js`, and there are no deployment scripts or contract tests.
+  Read it as a taste of what on-chain settlement could look like, not as a payment
+  system. Details: [docs/BLOCKCHAIN_SPEC.md](docs/BLOCKCHAIN_SPEC.md).
 - **Demo data** lives on free hosting: the database is kept for **30 days**, and the
   site can briefly go offline if the free plan runs out of credits. Treat it as a
   prototype, not a bank.
